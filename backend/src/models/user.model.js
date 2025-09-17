@@ -1,16 +1,20 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+
 
 const userSchema = new mongoose.Schema(
     {
         fullname : {
             type : String,
             required : true,
-            minLength : 3
+            minLength : 3,
         },
         username : {
             type : String,
             required : true,
-            unique : true
+            unique : true,
+            trim : true
         },
         email : {
             type : String,
@@ -19,9 +23,7 @@ const userSchema = new mongoose.Schema(
         },
         password : {
             type : String,
-            required : true,
-            minLength : 8,
-            maxLength : 12
+            required : true
         },
         blogs : {
             type : mongoose.Schema.Types.ObjectId,

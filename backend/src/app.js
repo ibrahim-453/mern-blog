@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import path from 'path'
+import authRouter from './routes/auth.routes.js'
 
 app.use(cors({
     origin : process.env.CORS_ORIGIN,
@@ -13,5 +13,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 app.use(express.static('public'))
 
+app.use("/api/v1/auth",authRouter)
 
 export {app}
