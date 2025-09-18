@@ -5,6 +5,13 @@ import asyncHander from "../utils/asyncHandler.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: false,
+  path: "/",
+};
+
 const signup = asyncHander(async (req, res) => {
   let { fullname, username, email, password } = req.body;
   if (
@@ -33,9 +40,7 @@ const signup = asyncHander(async (req, res) => {
 
 const signin = asyncHander(async (req, res) => {
   let { username, password } = req.body;
-  const options = {
-    httpOnly: true,
-  };
+
   if ([username, password].some((field) => field.trim() == "")) {
     throw new ApiError(500, "All Fields are required");
   }
@@ -54,22 +59,24 @@ const signin = asyncHander(async (req, res) => {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
   );
-  res.cookie("accessToken", accessToken, options);
+  res.cookie("accessToken", accessToken, cookieOptions);
 
   let loggedInuser = await User.findById(user._id).select("-password");
   return res
     .status(200)
-    .json(new ApiResponse(200, "Login Successfull", loggedInuser));
+    .json(
+      new ApiResponse(200, "Login Successfull", {
+        user: loggedInuser,
+        accessToken,
+      })
+    );
 });
 
 const signout = asyncHander(async (req, res) => {
   // let user = await User.findOne(req.user._id)
-  const options = {
-    httpOnly: true,
-  };
   return res
     .status(200)
-    .clearCookie("accessToken", options)
+    .clearCookie("accessToken", cookieOptions)
     .json(new ApiResponse(200, "Logout Successfull", {}));
 });
 

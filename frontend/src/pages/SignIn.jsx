@@ -2,11 +2,13 @@ import { useState } from "react";
 import usePasswordToggle from "../hooks/ShowPassword";
 import { Eye, EyeClosed } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { signin } from "../redux/auth/authSlice";
 function SignIn() {
   const { showPassword, togglepassword } = usePasswordToggle();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -19,12 +21,15 @@ function SignIn() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        credentials: "include",
       });
       const data = await res.json();
       if (!res.ok) {
         alert(data.message);
         return;
       }
+
+      dispatch(signin({ user: data.data.user, token: data.data.accessToken }));
       alert(data.message);
       setFormData({ username: "", password: "" });
       navigate("/");
