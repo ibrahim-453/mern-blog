@@ -39,12 +39,12 @@ const signup = asyncHander(async (req, res) => {
 });
 
 const signin = asyncHander(async (req, res) => {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  if ([username, password].some((field) => field.trim() == "")) {
+  if ([email, password].some((field) => field.trim() == "")) {
     throw new ApiError(500, "All Fields are required");
   }
-  let user = await User.findOne({ username });
+  let user = await User.findOne({ email });
   if (!user) {
     throw new ApiError(404, "User Not Found");
   }
@@ -72,6 +72,36 @@ const signin = asyncHander(async (req, res) => {
     );
 });
 
+const googleauth = asyncHander(async(req,res)=>{
+  const {fullname,email} = req.body
+  
+  let user = await User.findOne({email})
+  if(user){
+    let accessToken = jwt.sign({email : user.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
+    res.cookie("accessToken",accessToken,cookieOptions)
+    return res.status(200).json(
+      new ApiResponse(200,"Login Sucessfull",{user:user,accessToken})
+    )
+  }
+  else{
+    const generatePassword = Math.random().toString(36).slice(-8)+Math.random().toString(36).slice(-8)
+    const hash = await bcrypt.hash(generatePassword,10)
+    const googleUser = await User.create({
+      fullname,
+      username : fullname.toLowerCase().split(" ").join("")+Math.random().toString(9).slice(-3),
+      email,
+      password : hash
+    })
+    await googleUser.save()
+    let accessToken = jwt.sign({email : googleUser.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
+    res.cookie("accessToken",accessToken,cookieOptions)
+    return res.status(200).json(
+      new ApiResponse(200,"Login Sucessfull",{user:googleUser,accessToken})
+    )
+  }
+
+})
+
 const signout = asyncHander(async (req, res) => {
   // let user = await User.findOne(req.user._id)
   return res
@@ -80,4 +110,4 @@ const signout = asyncHander(async (req, res) => {
     .json(new ApiResponse(200, "Logout Successfull", {}));
 });
 
-export { signup, signin, signout };
+export { signup, signin, signout, googleauth };

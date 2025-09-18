@@ -1,7 +1,8 @@
 import { Eye, EyeClosed } from "lucide-react";
 import usePasswordToggle from "../hooks/ShowPassword";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 function SignUp() {
   const { showPassword, togglepassword } = usePasswordToggle();
@@ -46,6 +47,8 @@ function SignUp() {
           <h1 className="text-primary">Telling Your Stories</h1>
         </div>
         <div className="w-full max-w-md bg-white rounded-2xl shadow-[0_0_30px] shadow-white p-8">
+          <OAuth />
+          <p className="text-center text-sm my-3">or</p>
           <h1 className="text-2xl font-semibold text-center text-gray-80 mb-6">
             Join Now
           </h1>
@@ -132,6 +135,17 @@ function SignUp() {
             >
               Create Account
             </button>
+            <div className="text-center text-sm">
+              <p className="text-gray-600">
+                Already have an account?{" "}
+                <Link
+                  to="/sign-in"
+                  className="font-medium text-blue-600 hover:text-blue-700 underline decoration-blue-500"
+                >
+                  Sign In
+                </Link>
+              </p>
+            </div>
           </form>
         </div>
       </div>

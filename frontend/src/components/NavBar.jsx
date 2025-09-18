@@ -33,7 +33,7 @@ function NavBar() {
   };
   return (
     <div className={toggle ? "dark" : "light"}>
-      <header className="min-w-full h-16 py-4 bg-primary dark:bg-primary-dark dark:text-white">
+      <header className="fixed top-0 left-0 min-w-full h-16 py-4 bg-primary dark:bg-primary-dark dark:text-white">
         <nav className="max-w-7xl mx-auto flex flex-wrap justify-between items-center font-semibold">
           <div>
             <Link className="text-2xl font-bold " to="/">

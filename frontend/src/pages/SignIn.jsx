@@ -1,12 +1,14 @@
 import { useState } from "react";
 import usePasswordToggle from "../hooks/ShowPassword";
 import { Eye, EyeClosed } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signin } from "../redux/auth/authSlice";
+import OAuth from "../components/OAuth";
+
 function SignIn() {
   const { showPassword, togglepassword } = usePasswordToggle();
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,7 +33,7 @@ function SignIn() {
 
       dispatch(signin({ user: data.data.user, token: data.data.accessToken }));
       alert(data.message);
-      setFormData({ username: "", password: "" });
+      setFormData({ email: "", password: "" });
       navigate("/");
     } catch (error) {
       console.error("Something Went Wrong", error.message);
@@ -46,6 +48,8 @@ function SignIn() {
           <h1 className="text-primary">Telling Your Stories</h1>
         </div>
         <div className="w-full max-w-md rounded-2xl shadow-[0px_0px_30px] shadow-white p-8 bg-white">
+           <OAuth />
+          <p className="text-center text-sm my-3">or</p>
           <h1 className="text-2xl font-semibold text-center text-gray-80 mb-6">
             Login Now
           </h1>
@@ -55,17 +59,17 @@ function SignIn() {
             <div className="flex flex-col gap-2">
               <label
                 className="text-gray-700 text-sm font-medium"
-                htmlFor="username"
+                htmlFor="email"
               >
-                Username
+                Email
               </label>
               <input
-                id="username"
-                value={formData.username}
+                id="email"
+                value={formData.email}
                 onChange={handleChange}
                 className="px-4 py-2 rounded-lg text-gray-700 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-black/50 placeholder:text-gray-400"
                 type="text"
-                placeholder="Enter your username"
+                placeholder="Enter your email"
               />
             </div>
             <div className="flex flex-col gap-2 ">
@@ -99,6 +103,17 @@ function SignIn() {
             >
               Login
             </button>
+            <div className="text-center text-sm">
+              <p className="text-gray-600">
+                Don&apos;t have an account?{" "}
+                <Link
+                  to="/sign-up"
+                  className="font-medium text-blue-600 hover:text-blue-700 underline decoration-blue-500"
+                >
+                  Sign Up
+                </Link>
+              </p>
+            </div>
           </form>
         </div>
       </div>
