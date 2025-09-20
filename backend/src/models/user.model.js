@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+
 
 
 const userSchema = new mongoose.Schema(
@@ -24,6 +23,10 @@ const userSchema = new mongoose.Schema(
         password : {
             type : String,
             required : true
+        },
+        profilephoto : {
+            type : String,
+            default : "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
         },
         blogs : {
             type : mongoose.Schema.Types.ObjectId,

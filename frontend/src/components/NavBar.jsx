@@ -8,7 +8,7 @@ function NavBar() {
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated,user } = useSelector((state) => state.auth);
 
   const toggletheme = () => {
     setToggle(!toggle);
@@ -74,15 +74,11 @@ function NavBar() {
             />
           </div>
           <div className="flex gap-5">
-            {isAuthenticated ? (
+            {user && isAuthenticated ? (
               <>
-                <button
-                  onClick={handleLogout}
-                  className=" bg-black text-white hover:bg-transparent hover:text-black px-3 rounded-md py-1 duration-300 dark:hover:text-white dark:hover:bg-none dark:bg-primary dark:text-black"
-                  to="sign-up"
-                >
-                  SignOut
-                </button>
+              <Avatar>
+                  <img src={user.profilephoto} alt="user_Profile_Pic" />
+              </Avatar>
               </>
             ) : (
               <>

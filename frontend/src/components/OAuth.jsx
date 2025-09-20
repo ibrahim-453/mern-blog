@@ -2,8 +2,9 @@ import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import { app } from '../firebase'
 import { useDispatch } from 'react-redux'
 import { signin } from '../redux/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
 function OAuth() {
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleOAuth = async()=>{
@@ -25,10 +26,14 @@ function OAuth() {
       const data = await res.json()
       if(res.ok){
         dispatch(signin({user:data.data.user,token:data.data.accessToken}))
+        alert(data.message)
+        navigate("/")
       }
-      
+      else{
+        alert("SomeThing Went Wring Try Again Later")
+      }
     } catch (error) {
-      
+      alert("LogoutFailed")
     }
   }
 
