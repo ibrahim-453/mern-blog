@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import asyncHander from "../utils/asyncHandler.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import uploadOnCloudinary from "../utils/cloudinary.js";
 
 const cookieOptions = {
   httpOnly: true,
@@ -13,7 +14,7 @@ const cookieOptions = {
 };
 
 const signup = asyncHander(async (req, res) => {
-  let { fullname, username, email, password } = req.body;
+  let { fullname, username, email, password} = req.body;
   if (
     [fullname, username, email, password].some((field) => field.trim() == "")
   ) {
@@ -27,11 +28,16 @@ const signup = asyncHander(async (req, res) => {
   }
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
+
+  const profileFilePath = req.file?.path
+  const profilephoto = await uploadOnCloudinary(profileFilePath)
+
   let createdUser = await User.create({
     fullname,
     username,
     email,
     password: hash,
+    profilephoto:profilephoto.url
   });
   return res
     .status(200)
@@ -73,7 +79,7 @@ const signin = asyncHander(async (req, res) => {
 });
 
 const googleauth = asyncHander(async(req,res)=>{
-  const {fullname,email} = req.body
+  const {fullname,email,googlePhoto} = req.body
   
   let user = await User.findOne({email})
   if(user){
@@ -90,7 +96,8 @@ const googleauth = asyncHander(async(req,res)=>{
       fullname,
       username : fullname.toLowerCase().split(" ").join("")+Math.random().toString(9).slice(-3),
       email,
-      password : hash
+      password : hash,
+      profilephoto : googlePhoto
     })
     await googleUser.save()
     let accessToken = jwt.sign({email : googleUser.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
