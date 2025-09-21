@@ -5,7 +5,7 @@ import upload from "../middlewares/multer.js";
 
 const router = express.Router();
 
-router.route("/sign-up").post(upload.single(),signup);
+router.route("/sign-up").post(upload.single("profilepic"),signup);
 router.route("/sign-in").post(signin);
 router.route("/google-auth").post(googleauth)
 router.route("/sign-out").post(verifyJWT,signout);

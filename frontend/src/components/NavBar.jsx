@@ -3,12 +3,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { SunIcon, MoonIcon } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../redux/auth/authSlice";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 function NavBar() {
   const [toggle, setToggle] = useState(false);
+  const [dropdown, setDropDown] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated,user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropDown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const toggletheme = () => {
     setToggle(!toggle);
@@ -73,12 +89,87 @@ function NavBar() {
               placeholder="Search Blog"
             />
           </div>
-          <div className="flex gap-5">
+          <div ref={dropdownRef} className="flex items-center relative gap-5">
             {user && isAuthenticated ? (
               <>
-              <Avatar>
-                  <img src={user.profilephoto} alt="user_Profile_Pic" />
-              </Avatar>
+                <img
+                  onClick={() => setDropDown(!dropdown)}
+                  className="rounded-full cursor-pointer border-2 border-gray-300 hover:scale-105 transition-transform"
+                  width={40}
+                  height={40}
+                  src={user.profilephoto}
+                  alt="user_Profile_Pic"
+                />
+                {dropdown && (
+                  <div className="absolute top-12 left-0 min-w-55 bg-white rounded-lg p-4 flex flex-col items-start gap-2 z-50">
+                    <p className="font-semibold text-gray-700">
+                      @{user.username}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {user.email}
+                    </p>
+                    <hr className="w-full border-gray-300 my-2" />
+
+                    <Link
+                      to="profile"
+                      className="w-full text-left px-3 py-1 rounded-md hover:bg-primary duration-300"
+                    >
+                      Profile
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-3 py-1 rounded-md bg-black text-white hover:bg-transparent hover:text-black border border-black duration-300"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <Link
+                  className=" bg-black text-white hover:bg-transparent hover:text-black px-3 rounded-md py-1 duration-300"
+                  to="sign-up"
+                >
+                  SignUp
+                </Link>
+                <Link
+                  className="hover:bg-black px-3 hover:text-white rounded-md py-1 duration-300"
+                  to="sign-in"
+                >
+                  SignIn
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* <div className="flex items-center relative gap-5">
+            {user && isAuthenticated ? (
+              <>
+                <img
+                  onClick={()=> setDropDown(!dropdown)}
+                  className="rounded-full"
+                  width={40}
+                  height={40}
+                  src={user.profilephoto}
+                  alt="user_Profile_Pic"
+                />
+                {dropdown && (
+                  <div className="absolute flex flex-col justify-start items-center">
+                    <p>@{user.username}</p>
+                    <p>{user.email}</p>
+                    <hr />
+                    <Link to="profile">Profile</Link>
+                    <button
+                      onClick={handleLogout}
+                      className=" bg-black text-white hover:bg-transparent hover:text-black px-3 rounded-md py-1 duration-300 dark:hover:text-white dark:hover:bg-none dark:bg-primary dark:text-black"
+                      to="sign-up"
+                    >
+                      SignOut
+                    </button>
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -96,7 +187,7 @@ function NavBar() {
                 </Link>
               </>
             )}
-          </div>
+          </div> */}
           <div>
             <button onClick={toggletheme}>
               {toggle == false ? <MoonIcon /> : <SunIcon />}

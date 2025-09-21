@@ -1,7 +1,7 @@
 import { Eye, EyeClosed } from "lucide-react";
 import usePasswordToggle from "../hooks/ShowPassword";
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 function SignUp() {
@@ -11,20 +11,33 @@ function SignUp() {
     username: "",
     email: "",
     password: "",
+    profilepic: null,
   });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, profilepic: e.target.files[0] });
+  };
   const formSubmit = async (e) => {
     e.preventDefault();
     try {
+      const dataTosend = new FormData();
+      dataTosend.append("fullname", formData.fullname);
+      dataTosend.append("username", formData.username);
+      dataTosend.append("email", formData.email);
+      dataTosend.append("password", formData.password);
+
+     if (formData.profilepic) {
+      dataTosend.append("profilepic", formData.profilepic); // field name must match multer
+    } 
+
       const res = await fetch("/api/v1/auth/sign-up", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        // headers: { "Content-Type": "application/json" },
+        body: dataTosend,
       });
       const data = await res.json();
       if (!res.ok) {
@@ -32,7 +45,7 @@ function SignUp() {
         return;
       }
       alert(data.message);
-      setFormData({ fullname: "", username: "", email: "", password: "" });
+      setFormData({ fullname: "", username: "", email: "", password: "" ,profilepic : null});
       navigate("/sign-in");
     } catch (error) {
       console.error("Something Went Wrong", error.message);
@@ -64,7 +77,7 @@ function SignUp() {
               <input
                 value={formData.fullname}
                 onChange={handleChange}
-                id="fullname"
+                name="fullname"
                 type="text"
                 placeholder="Enter your fullname"
                 className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/50"
@@ -80,7 +93,7 @@ function SignUp() {
               <input
                 value={formData.username}
                 onChange={handleChange}
-                id="username"
+                name="username"
                 type="text"
                 placeholder="Enter your username"
                 className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/50 dark:bg-gray-700"
@@ -97,9 +110,24 @@ function SignUp() {
               <input
                 value={formData.email}
                 onChange={handleChange}
-                id="email"
+                name="email"
                 type="email"
                 placeholder="Enter your email"
+                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/50 dark:bg-gray-700"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="profilepic"
+                className="text-sm font-medium text-gray-700"
+              >
+                Profile Photo
+              </label>
+              <input
+                onChange={handleFileChange}
+                name="profilepic"
+                type="file"
                 className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/50 dark:bg-gray-700"
               />
             </div>
@@ -115,7 +143,7 @@ function SignUp() {
                 <input
                   value={formData.password}
                   onChange={handleChange}
-                  id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300  text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
