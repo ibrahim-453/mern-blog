@@ -7,6 +7,7 @@ import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+
 function App() {
   return (
     <BrowserRouter>

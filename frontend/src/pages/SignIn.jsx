@@ -13,7 +13,7 @@ function SignIn() {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -64,7 +64,7 @@ function SignIn() {
                 Email
               </label>
               <input
-                id="email"
+                name="email"
                 value={formData.email}
                 onChange={handleChange}
                 className="px-4 py-2 rounded-lg text-gray-700 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-black/50 placeholder:text-gray-400"
@@ -81,7 +81,7 @@ function SignIn() {
               </label>
               <div className="flex relative">
                 <input
-                  id="password"
+                  name="password"
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full px-4 py-2 pr-8 rounded-lg text-gray-700 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-black/50 placeholder:text-gray-400"

@@ -49,7 +49,7 @@ function NavBar() {
   };
   return (
     <div className={toggle ? "dark" : "light"}>
-      <header className="fixed top-0 left-0 min-w-full h-16 py-4 bg-primary dark:bg-primary-dark dark:text-white">
+      <header className="sticky top-0 left-0 min-w-full h-16 py-4 bg-primary dark:bg-primary-dark dark:text-white">
         <nav className="max-w-7xl mx-auto flex flex-wrap justify-between items-center font-semibold">
           <div>
             <Link className="text-2xl font-bold " to="/">
@@ -94,20 +94,16 @@ function NavBar() {
               <>
                 <img
                   onClick={() => setDropDown(!dropdown)}
-                  className="rounded-full cursor-pointer border-2 border-gray-300 hover:scale-105 transition-transform"
-                  width={40}
-                  height={40}
+                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-200 hover:scale-110 transition duration-200 object-cover"
                   src={user.profilephoto}
-                  alt="user_Profile_Pic"
+                  alt="User profile"
                 />
                 {dropdown && (
                   <div className="absolute top-12 left-0 min-w-55 bg-white rounded-lg p-4 flex flex-col items-start gap-2 z-50">
                     <p className="font-semibold text-gray-700">
                       @{user.username}
                     </p>
-                    <p className="text-sm text-gray-500">
-                      {user.email}
-                    </p>
+                    <p className="text-sm text-gray-500">{user.email}</p>
                     <hr className="w-full border-gray-300 my-2" />
 
                     <Link
@@ -144,50 +140,6 @@ function NavBar() {
             )}
           </div>
 
-          {/* <div className="flex items-center relative gap-5">
-            {user && isAuthenticated ? (
-              <>
-                <img
-                  onClick={()=> setDropDown(!dropdown)}
-                  className="rounded-full"
-                  width={40}
-                  height={40}
-                  src={user.profilephoto}
-                  alt="user_Profile_Pic"
-                />
-                {dropdown && (
-                  <div className="absolute flex flex-col justify-start items-center">
-                    <p>@{user.username}</p>
-                    <p>{user.email}</p>
-                    <hr />
-                    <Link to="profile">Profile</Link>
-                    <button
-                      onClick={handleLogout}
-                      className=" bg-black text-white hover:bg-transparent hover:text-black px-3 rounded-md py-1 duration-300 dark:hover:text-white dark:hover:bg-none dark:bg-primary dark:text-black"
-                      to="sign-up"
-                    >
-                      SignOut
-                    </button>
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                <Link
-                  className=" bg-black text-white hover:bg-transparent hover:text-black px-3 rounded-md py-1 duration-300 dark:hover:text-white dark:hover:bg-none dark:bg-primary dark:text-black"
-                  to="sign-up"
-                >
-                  SignUp
-                </Link>
-                <Link
-                  className="hover:bg-black px-3 hover:text-white rounded-md py-1 duration-300 dark:hover:bg-primary dark:hover:text-black"
-                  to="sign-in"
-                >
-                  SignIn
-                </Link>
-              </>
-            )}
-          </div> */}
           <div>
             <button onClick={toggletheme}>
               {toggle == false ? <MoonIcon /> : <SunIcon />}

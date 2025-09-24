@@ -1,5 +1,5 @@
 import express from "express";
-import { googleauth, signin, signout, signup } from "../controllers/signup.controller.js";
+import { googleauth, signin, signout, signup } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.js";
 import upload from "../middlewares/multer.js";
 
