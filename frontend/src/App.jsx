@@ -7,6 +7,8 @@ import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import VerifyEmail from './pages/VerifyEmail';
+import ProfileDetail from './pages/ProfileDetail';
 
 function App() {
   return (
@@ -14,11 +16,13 @@ function App() {
       <Routes>
         <Route element={<Layout/>}>
           <Route index element={<Home/>} />
+          <Route path='/sign-up' element={<SignUp/>} />
+          <Route path='/verify-email' element={<VerifyEmail />} />
+          <Route path='/sign-in' element={<SignIn/>} />
           <Route path='/about' element={<About/>} />
           <Route path='/contact-us' element={<Contact/>} />
           <Route path='/dashboard' element={<Dashboard/>} />
-          <Route path='/sign-in' element={<SignIn/>} />
-          <Route path='/sign-up' element={<SignUp/>} />
+          <Route path='/profile-details' element={<ProfileDetail />} /> 
         </Route>
       </Routes>
     </BrowserRouter>

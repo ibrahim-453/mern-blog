@@ -107,7 +107,7 @@ function NavBar() {
                     <hr className="w-full border-gray-300 my-2" />
 
                     <Link
-                      to="profile"
+                      to="profile-details"
                       className="w-full text-left px-3 py-1 rounded-md hover:bg-primary duration-300"
                     >
                       Profile

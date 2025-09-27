@@ -11,33 +11,20 @@ function SignUp() {
     username: "",
     email: "",
     password: "",
-    profilepic: null,
   });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, profilepic: e.target.files[0] });
-  };
-  const formSubmit = async (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const dataTosend = new FormData();
-      dataTosend.append("fullname", formData.fullname);
-      dataTosend.append("username", formData.username);
-      dataTosend.append("email", formData.email);
-      dataTosend.append("password", formData.password);
-
-     if (formData.profilepic) {
-      dataTosend.append("profilepic", formData.profilepic); // field name must match multer
-    } 
-
       const res = await fetch("/api/v1/auth/sign-up", {
         method: "POST",
-        // headers: { "Content-Type": "application/json" },
-        body: dataTosend,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -45,8 +32,8 @@ function SignUp() {
         return;
       }
       alert(data.message);
-      setFormData({ fullname: "", username: "", email: "", password: "" ,profilepic : null});
-      navigate("/sign-in");
+      navigate("/verify-email",{state : {email : formData.email}});
+      setFormData({ fullname: "", username: "", email: "", password: ""});
     } catch (error) {
       console.error("Something Went Wrong", error.message);
     }
@@ -66,7 +53,7 @@ function SignUp() {
             Join Now
           </h1>
           <hr />
-          <form onSubmit={formSubmit} className="flex flex-col gap-6 mt-6">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6 mt-6">
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="fullname"
@@ -113,21 +100,6 @@ function SignUp() {
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/50 dark:bg-gray-700"
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="profilepic"
-                className="text-sm font-medium text-gray-700"
-              >
-                Profile Photo
-              </label>
-              <input
-                onChange={handleFileChange}
-                name="profilepic"
-                type="file"
                 className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/50 dark:bg-gray-700"
               />
             </div>
