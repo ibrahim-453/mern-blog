@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth.routes.js'
 import userRouter from './routes/user.routes.js'
+import blogRouter from './routes/blog.routes.js'
 
 app.use(cors({
     origin : process.env.CORS_ORIGIN,
@@ -16,5 +17,6 @@ app.use(express.static('public'))
 
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/user",userRouter)
+app.use("/api/v1/blog",blogRouter)
 
 export {app}

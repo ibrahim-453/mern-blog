@@ -1,5 +1,4 @@
 import { Edit2 } from "lucide-react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setUser} from '../redux/auth/authSlice'
 import { useRef } from "react";
@@ -38,8 +37,6 @@ function ProfileDetail() {
   }
 
   return (
-    <>
-      {user ? (
         <div className="flex flex-col justify-center items-center gap-10 p-10 bg-black text-white">
           <div className="relative">
             <img
@@ -83,10 +80,6 @@ function ProfileDetail() {
             </div>
           </div>
         </div>
-      ) : (
-        <div>Please login</div>
-      )}
-    </>
   );
 }
 

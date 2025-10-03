@@ -244,4 +244,5 @@ const changeprofilepic = asyncHandler(async (req,res)=>{
   )
 
 })
+
 export { signup, signin, signout, googleauth, verifyemail, resettoken, resettokenverification, changepassword, changeprofilepic };
