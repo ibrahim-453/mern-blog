@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import CommentSection from "../components/CommentSection";
 
 function ReadBlog() {
-  const { blogId } = useParams();
+  const { blogSlug } = useParams();
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?blogId=${blogId}`);
+        const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`);
         const data = await res.json();
         if (res.ok) {
           setBlog(data.data.blog[0]);
@@ -20,7 +20,7 @@ function ReadBlog() {
       }
     };
     fetchBlog();
-  }, [blogId]);
+  }, [blogSlug]);
   return (
     <div className="w-full min-h-screen py-10 px-6">
       {blog ? (

@@ -106,7 +106,7 @@ const signin = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Invalid User Crendentials");
   }
   let accessToken = jwt.sign(
-    { email: user.email },
+    { email: user.email,role:user.role },
     process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
@@ -130,7 +130,7 @@ const googleauth = asyncHandler(async(req,res)=>{
   
   let user = await User.findOne({email})
   if(user){
-    let accessToken = jwt.sign({email : user.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
+    let accessToken = jwt.sign({email : user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
     res.cookie("accessToken",accessToken,cookieOptions)
     return res.status(200).json(
       new ApiResponse(200,"Login Sucessfull",{user:user,accessToken})
@@ -147,7 +147,7 @@ const googleauth = asyncHandler(async(req,res)=>{
       profilephoto : googlePhoto
     })
     await googleUser.save()
-    let accessToken = jwt.sign({email : googleUser.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
+    let accessToken = jwt.sign({email : googleUser.email,role:googleUser.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn : process.env.ACCESS_TOKEN_EXPIRY})
     res.cookie("accessToken",accessToken,cookieOptions)
     return res.status(200).json(
       new ApiResponse(200,"Login Sucessfull",{user:googleUser,accessToken})
@@ -245,4 +245,49 @@ const changeprofilepic = asyncHandler(async (req,res)=>{
 
 })
 
-export { signup, signin, signout, googleauth, verifyemail, resettoken, resettokenverification, changepassword, changeprofilepic };
+const deleteuser = asyncHandler(async (req,res)=>{
+  let {userId} = req.params
+  if(req.user.role !=="admin"){
+     throw new ApiError(400,"Unauthorized Request")
+  }
+  const deletedUser = await User.findByIdAndDelete(userId)
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,"User Deleted",deletedUser)
+  )
+})
+
+const getusers = asyncHandler(async (req,res)=>{
+  if(!req.user.role == "admin"){
+    throw new ApiError(400,"Unauthorized Request")
+  }
+  const startIndex = parseInt(req.query.startIndex) || 0
+  const limit = parseInt(req.query.limiy) || 9
+  const sortDirection = req.query.order == "asc" ? 1 : -1
+
+  const users = await User.find()
+  .sort({updatedAt:sortDirection})
+  .skip(startIndex)
+  .limit(limit)
+
+  const totalusers = await User.countDocuments()
+  const now = new Date()
+  const oneMonthAgo = new Date(
+    now.getFullYear(),
+    now.getMonth() - 1,
+    now.getDate()
+  )
+  const lastMonth = await User.countDocuments({
+    createdAt : {$gte:oneMonthAgo}
+  })
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,"All Users Fetched",{users,totalusers,lastMonth})
+  )
+})
+
+export { signup, signin, signout, googleauth, verifyemail, resettoken, resettokenverification, changepassword, changeprofilepic, getusers, deleteuser };

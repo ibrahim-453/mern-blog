@@ -7,15 +7,18 @@ const commentSchema = new mongoose.Schema(
             required : true
         },
         blogId:{
-            type : String,
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Blog",
             required : true
         },
         userId:{
-            type : String,
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "User",
             required : true
         },
         likes:{
-            type : Array,
+            type : [mongoose.Schema.Types.ObjectId],
+            ref : "User",
             default : []
         },
         numberOfLikes:{

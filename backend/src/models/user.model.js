@@ -28,19 +28,19 @@ const userSchema = new mongoose.Schema(
     },
     resetToken: {
       type: String,
-      default: '',
+      default: "",
     },
     resetTokenExpiresAt: {
       type: Date,
-      default: undefined ,
+      default: undefined,
     },
-    isResetTokenVerified : {
-      type : Boolean,
-      default : false
+    isResetTokenVerified: {
+      type: Boolean,
+      default: false,
     },
     isVerificationToken: {
       type: String,
-      default: '',
+      default: "",
     },
     isVerificationTokenExpiresAt: {
       type: Date,
@@ -51,10 +51,17 @@ const userSchema = new mongoose.Schema(
       default:
         "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg",
     },
-    blogs: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Blog",
-    }],
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog",
+      },
+    ],
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
   },
   { timestamps: true }
 );

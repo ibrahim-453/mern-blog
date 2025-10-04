@@ -15,6 +15,9 @@ import UserBlog from './pages/UserBlog';
 import EditBlog from './pages/EditBlog';
 import ReadBlog from './pages/ReadBlog';
 import ScrollTop from './components/ScrollTop';
+import AdminBlog from './pages/AdminBlog';
+import AdminUsers from './pages/AdminUsers';
+import AdminComment from './pages/AdminComment';
 function App() {
   return (
     <BrowserRouter>
@@ -32,10 +35,13 @@ function App() {
             <Route element={<Profile />}>
                <Route path='/profile-details' element={<ProfileDetail />} /> 
                <Route path='/my-blogs' element={<UserBlog />} />
+               <Route path='/all-blogs' element={<AdminBlog />} />
+               <Route path='/all-users' element={<AdminUsers />} />
+               <Route path='/all-comments' element={<AdminComment />} />
             </Route>
-            <Route path='/edit-blog/:blogId' element={<EditBlog />} />
+            <Route path='/edit-blog/:blogSlug' element={<EditBlog />} />
             <Route path='/write-blog' element={<WriteBlog />} />
-            <Route path='/read-blog/:blogId' element={<ReadBlog />} />
+            <Route path='/read-blog/:blogSlug' element={<ReadBlog />} />
           </Route>
         </Route>
       </Routes>

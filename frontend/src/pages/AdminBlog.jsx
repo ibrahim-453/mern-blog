@@ -1,64 +1,65 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Edit, Trash2 } from "lucide-react";
-import { useSelector } from "react-redux";
-
-function UserBlog() {
-  const { user } = useSelector((state) => state.auth);
-  const [myblog, setMyBlog] = useState([]);
-  const [showmore, setShowMore] = useState(true);
-  useEffect(() => {
-    const fetchUserBlogs = async () => {
-      try {
-        const res = await fetch(`/api/v1/blog/get-blog?userId=${user._id}`);
-        const data = await res.json();
-        if (res.ok) {
-          setMyBlog(data.data.blog || []);
-          if (data.data.blog.length < 2) {
-            setShowMore(false);
-          }
-        }
-      } catch (error) {
-        console.log("Error occured" || error.message);
-      }
-    };
-    fetchUserBlogs();
-  }, []);
-  const handleDelete = async (blogId) => {
-    try {
-      const res = await fetch(`/api/v1/blog/delete-blog/${blogId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.message);
-        return;
-      }
-      alert(data.message);
-      setMyBlog((prev) => prev.filter((b) => b._id !== blogId));
-    } catch (error) {
-      alert("Something went wrong" || error.message);
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Edit,Trash2 } from 'lucide-react'
+function AdminBlog() {
+    const [allBlog,setAllBlog] = useState([])
+    const [showMore,setShowMore] = useState(true)
+    useEffect(()=>{
+        const fetchallBlog = async()=>{
+            try {
+                const res = await fetch("/api/v1/blog/get-blog")
+                const data = await res.json()
+                if(res.ok){
+                    setAllBlog(data.data.blog)
+                    if(data.data.blog < 9){
+                        setShowMore(false)
+                    }
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
     }
-  };
-  const handleShowMore = async () => {
-    const startIndex = myblog.length;
-    try {
-      const res = await fetch(
-        `/api/v1/blog/get=blog?userId=${user._id}&startIndex=${startIndex}`
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setMyBlog((prev) => [...prev, ...data.data.blog]);
-        if (data.data.blog.length < 2) {
-          setShowMore(false);
+    fetchallBlog()
+    },[])
+
+    const handleShowMore = async()=>{
+        const startIndex = allBlog.length
+        try {
+            const res = await fetch(`/api/v1/blog/get-blog?startIndex=${startIndex}`)
+            const data = await res.json()
+            if(res.ok){
+                setAllBlog((prev)=>[...prev,...data.data.blog])
+                if(data.data.blog < 9){
+                    setShowMore(false)
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
         }
-      }
-    } catch (error) {}
-  };
+    }
+    const handleDelete = async(blogId)=>{
+        try {
+            const res = await fetch(`/api/v1/blog/delete-blog/${blogId}`,{
+                method : "DELETE",
+                credentials : "include"
+            })
+            const data = await res.json()
+            if(res.ok){
+                setAllBlog((prev)=>prev.filter((b)=>b._id!==blogId))
+                alert(data.message);
+            }
+            else{
+                alert(data.message)
+                return
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
   return (
     <div className="p-4">
-      {myblog.length === 0 ? (
+      {allBlog.length === 0 ? (
         <p className="text-center text-gray-500">No Blogs...</p>
       ) : (
         <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
@@ -73,7 +74,7 @@ function UserBlog() {
               </tr>
             </thead>
             <tbody>
-              {myblog.map((blog) => (
+              {allBlog.map((blog) => (
                 <tr
                   key={blog._id}
                   className="border-b hover:bg-gray-50 transition"
@@ -97,7 +98,7 @@ function UserBlog() {
                     })}
                   </td>
                   <td className="px-6 py-3">
-                    <div className="flex justify-center items-center gap-2">
+                    <div className="flex justify-between items-center gap-2">
                       <Link to={`/edit-blog/${blog.slug}`}>
                         <Edit />
                       </Link>
@@ -110,11 +111,11 @@ function UserBlog() {
               ))}
             </tbody>
           </table>
-          {showmore && <button onClick={handleShowMore}>Show more</button>}
+          {showMore && <button onClick={handleShowMore}>Show more</button>}
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default UserBlog;
+export default AdminBlog

@@ -1,95 +1,4 @@
-// import React from "react";
-// import { useEffect } from "react";
-// import { useState } from "react";
-
-// function AllBlog() {
-//   const [blog, setBlog] = useState([]);
-//   const [showmore, setShowMore] = useState(true);
-//   useEffect(() => {
-//     const fetchBlogs = async () => {
-//       try {
-//         const res = await fetch("/api/v1/blog/get-blog", {
-//           method: "GET",
-//         });
-//         const data = await res.json();
-//         if (res.ok) {
-//           setBlog(data.data.blog || []);
-//           if (data.data.blog.length < 2) {
-//             setShowMore(false);
-//           }
-//         }
-//       } catch (error) {
-//         console.log(error.message);
-//       }
-//     };
-//     fetchBlogs();
-//   }, []);
-//   const handleShowMore = async () => {
-//     const startIndex = blog.length;
-//     try {
-//       const res = await fetch(`/api/v1/blog/get-blog?startIndex=${startIndex}`);
-//       const data = await res.json();
-//       if (res.ok) {
-//         setBlog((prev) => [...prev, ...data.data.blog]);
-//         if (data.data.blog.length < 2) {
-//           setShowMore(false);
-//         }
-//       }
-//     } catch (error) {
-//       console.log("Load More Failed" || error.message);
-//     }
-//   };
-//   return (
-//     <div className="w-full min-h-screen">
-//       {blog.length == 0 ? (
-//         <p>No Blog Found</p>
-//       ) : (
-//         <div className="max-w-7xl mx-auto grid grid-cols-3 justify-center items-center gap-2">
-//           {blog.map((blog) => {
-//             return (
-//               <div
-//                 className="max-w-md flex flex-col justify-center items-center"
-//                 key={blog._id}
-//               >
-//                 <div>
-//                   <img
-//                     className="object-cover w-md h-md"
-//                     src={blog.bannerImage}
-//                     alt=""
-//                   />
-//                 </div>
-//                 <div>
-//                   <h3>{blog.title}</h3>
-//                   <p  dangerouslySetInnerHTML=
-//                     {{
-//                       __html: blog.content.substring(0, 200) + "...",
-//                     }}>
-//                   </p>
-//                 </div>
-//                 <div className="flex justify-between items-center">
-//                   <img
-//                     className="object-cover w-10 h-10 rounded-full"
-//                     src={blog.userId?.profilephoto}
-//                     alt=""
-//                   />
-//                   <p>Written By : {blog.userId?.fullname}</p>
-//                   <p>
-//                     Created At : {new Date(blog.createdAt).toLocaleDateString()}
-//                   </p>
-//                 </div>
-//               </div>
-//             );
-//           })}
-//         </div>
-//       )}
-//       {showmore && <button onClick={handleShowMore}>Show more</button>}
-//     </div>
-//   );
-// }
-
-// export default AllBlog;
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function AllBlog() {
@@ -105,7 +14,7 @@ function AllBlog() {
         const data = await res.json();
         if (res.ok) {
           setBlog(data.data.blog || []);
-          if (data.data.blog.length < 2) {
+          if (data.data.blog.length < 9) {
             setShowMore(false);
           }
         }
@@ -123,7 +32,7 @@ function AllBlog() {
       const data = await res.json();
       if (res.ok) {
         setBlog((prev) => [...prev, ...data.data.blog]);
-        if (data.data.blog.length < 2) {
+        if (data.data.blog.length < 9) {
           setShowMore(false);
         }
       }
@@ -182,7 +91,7 @@ function AllBlog() {
                       </p>
                     </div>
                   </div>
-                  <Link to={`/read-blog/${blog._id}`} className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+                  <Link to={`/read-blog/${blog.slug}`} className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
                     Read More →
                   </Link>
                 </div>

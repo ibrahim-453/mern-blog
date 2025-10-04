@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 function EditBlog() {
-  const { blogId } = useParams();
+  const { blogSlug } = useParams();
   const navigate = useNavigate();
   const [blogdata, setBlogData] = useState({
     title: "",
@@ -24,7 +24,7 @@ function EditBlog() {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?blogId=${blogId}`, {
+        const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`, {
           method: "GET",
           credentials: "include",
         });
@@ -32,6 +32,7 @@ function EditBlog() {
         const singleBlog = data.data.blog[0];
         if (res.ok) {
           setBlogData({
+            id:singleBlog._id,
             title: singleBlog.title,
             content: singleBlog.content,
             categoryName: singleBlog.category.name,
@@ -43,7 +44,7 @@ function EditBlog() {
       }
     };
     fetchBlogDetails();
-  }, [blogId]);
+  }, [blogSlug]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -54,7 +55,7 @@ function EditBlog() {
       formData.append("bannerImage", bannerImage);
     }
     try {
-      const res = await fetch(`/api/v1/blog/edit-blog/${blogId}`, {
+      const res = await fetch(`/api/v1/blog/edit-blog/${blogdata.id}`, {
         method: "PUT",
         body: formData,
         credentials: "include",
