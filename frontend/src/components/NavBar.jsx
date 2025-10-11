@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../redux/auth/authSlice";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import Search from "./Search";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
 function NavBar() {
   const { theme } = useSelector((state) => state.theme);
@@ -15,7 +15,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-
+  const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -28,7 +28,7 @@ function NavBar() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/v1/auth/sign-out", {
+      const res = await fetch(`${API_BASE}/auth/sign-out`, {
         method: "POST",
         credentials: "include",
       });
@@ -138,9 +138,7 @@ function NavBar() {
       </nav>
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-300 ${
-          mobileMenuOpen
-            ? "backdrop-blur-lg"
-            : "invisible opacity-0"
+          mobileMenuOpen ? "backdrop-blur-lg" : "invisible opacity-0"
         }`}
       >
         <div

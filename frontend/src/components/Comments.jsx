@@ -10,10 +10,10 @@ function Comments({ comment, onEdit, onDelete }) {
   const [numberoflikes, setNumberOfLikes] = useState(comment.numberoflikes || 0);
   const [isEdit, setIsEdit] = useState(false);
   const [editcomment, setEditComment] = useState("");
-
+ const API_BASE = import.meta.env.VITE_API_URL;
   const handleLike = async (commentId) => {
     try {
-      const res = await fetch(`/api/v1/comment/comment-like/${commentId}`, {
+      const res = await fetch(`${API_BASE}/comment/comment-like/${commentId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ commentId }),
@@ -37,7 +37,7 @@ function Comments({ comment, onEdit, onDelete }) {
 
   const handleDelete = async (commentId) => {
     try {
-      const res = await fetch(`/api/v1/comment/delete-comment/${commentId}`, {
+      const res = await fetch(`${API_BASE}/comment/delete-comment/${commentId}`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -50,7 +50,7 @@ function Comments({ comment, onEdit, onDelete }) {
 
   const handleUpdate = async (commentId) => {
     try {
-      const res = await fetch(`/api/v1/comment/edit-comment/${commentId}`, {
+      const res = await fetch(`${API_BASE}/comment/edit-comment/${commentId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: editcomment })

@@ -9,7 +9,7 @@ function ProfileDetail() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
   const navigate = useNavigate();
-
+ const API_BASE = import.meta.env.VITE_API_URL;
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -18,7 +18,7 @@ function ProfileDetail() {
     formData.append("profilepic", file);
 
     try {
-      const res = await fetch("/api/v1/user/change-profile-photo", {
+      const res = await fetch(`${API_BASE}/user/change-profile-photo`, {
         method: "POST",
         body: formData,
         credentials: "include",

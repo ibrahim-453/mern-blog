@@ -8,11 +8,12 @@ function UserBlog() {
   const { user } = useSelector((state) => state.auth);
   const [myblog, setMyBlog] = useState([]);
   const [showmore, setShowMore] = useState(true);
+   const API_BASE = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchUserBlogs = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?userId=${user._id}`);
+        const res = await fetch(`${API_BASE}/blog/get-blog?userId=${user._id}`);
         const data = await res.json();
         if (res.ok) {
           setMyBlog(data.data.blog || []);
@@ -33,7 +34,7 @@ function UserBlog() {
     }
 
     try {
-      const res = await fetch(`/api/v1/blog/delete-blog/${blogId}`, {
+      const res = await fetch(`${API_BASE}/blog/delete-blog/${blogId}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -54,7 +55,7 @@ function UserBlog() {
     const startIndex = myblog.length;
     try {
       const res = await fetch(
-        `/api/v1/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`
+        `${API_BASE}/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {

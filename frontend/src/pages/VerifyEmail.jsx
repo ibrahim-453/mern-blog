@@ -7,11 +7,11 @@ function VerifyEmail() {
   let email = state?.email || "";
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-
+ const API_BASE = import.meta.env.VITE_API_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/v1/auth/verify-email", {
+      const res = await fetch(`${API_BASE}/auth/verify-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),

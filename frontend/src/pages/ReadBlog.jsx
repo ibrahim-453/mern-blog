@@ -6,11 +6,11 @@ import CommentSection from "../components/CommentSection";
 function ReadBlog() {
   const { blogSlug } = useParams();
   const [blog, setBlog] = useState(null);
-
+ const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`);
+        const res = await fetch(`${API_BASE}/blog/get-blog?slug=${blogSlug}`);
         const data = await res.json();
         if (res.ok) {
           setBlog(data.data.blog[0]);

@@ -8,11 +8,11 @@ function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const { showPassword, togglepassword } = usePasswordToggle();
   const navigate = useNavigate();
-
+   const API_BASE = import.meta.env.VITE_API_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/v1/user/change-password", {
+      const res = await fetch(`${API_BASE}/user/change-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newPassword }),

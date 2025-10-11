@@ -8,6 +8,7 @@ function WriteBlog() {
     content: "",
   });
   const [bannerImage, setBannerImage] = useState(null);
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
@@ -27,7 +28,7 @@ function WriteBlog() {
     (formData.append("content", blogdata.content),
       formData.append("bannerImage", bannerImage));
     try {
-      const res = await fetch("/api/v1/blog/create-blog", {
+      const res = await fetch(`${API_BASE}/blog/create-blog`, {
         method: "POST",
         body: formData,
         credentials: "include",

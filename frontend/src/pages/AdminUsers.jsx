@@ -4,11 +4,11 @@ import { Trash2, Mail, User } from "lucide-react";
 function AdminUsers() {
   const [allUsers, setAllUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
-
+ const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const res = await fetch("/api/v1/user/get-users", {
+        const res = await fetch(`${API_BASE}/user/get-users`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -32,7 +32,7 @@ function AdminUsers() {
     const startIndex = allUsers.length;
     try {
       const res = await fetch(
-        `/api/v1/user/get-users?startIndex=${startIndex}`,
+        `${API_BASE}/user/get-users?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -62,7 +62,7 @@ function AdminUsers() {
     }
 
     try {
-      const res = await fetch(`/api/v1/user/delete-user/${userId}`, {
+      const res = await fetch(`${API_BASE}/user/delete-user/${userId}`, {
         method: "DELETE",
         credentials: "include",
       });

@@ -4,11 +4,11 @@ import { Trash2, MessageSquare } from "lucide-react";
 function AdminComment() {
   const [allComments, setAllComments] = useState([]);
   const [showMore, setShowMore] = useState(true);
-
+ const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchAllComments = async () => {
       try {
-        const res = await fetch("/api/v1/comment/get-comment", {
+        const res = await fetch(`${API_BASE}/comment/get-comment`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -32,7 +32,7 @@ function AdminComment() {
     const startIndex = allComments.length;
     try {
       const res = await fetch(
-        `/api/v1/comment/get-comment?startIndex=${startIndex}`,
+        `${API_BASE}/comment/get-comment?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -58,7 +58,7 @@ function AdminComment() {
     }
 
     try {
-      const res = await fetch(`/api/v1/comment/delete-comment/${commentId}`, {
+      const res = await fetch(`${API_BASE}/comment/delete-comment/${commentId}`, {
         method: "DELETE",
         credentials: "include",
       });
