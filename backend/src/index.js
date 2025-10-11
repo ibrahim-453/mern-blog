@@ -1,5 +1,5 @@
-import { app } from "./app.js";
-import { connectDB } from "./connection/mongoose.connection.js";
+import { app } from "../src/app.js";
+import { connectDB } from "../src/connection/mongoose.connection.js";
 import debug from "debug";
 import dotenv from 'dotenv'
 
