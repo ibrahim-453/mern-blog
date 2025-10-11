@@ -3,6 +3,7 @@ import { app } from '../firebase'
 import { useDispatch } from 'react-redux'
 import { signin } from '../redux/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 function OAuth() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -27,14 +28,14 @@ function OAuth() {
       const data = await res.json()
       if(res.ok){
         dispatch(signin({user:data.data.user,token:data.data.accessToken}))
-        alert(data.message)
+        toast.success(data.message)
         navigate("/")
       }
       else{
-        alert("SomeThing Went Wring Try Again Later")
+        toast.error("SomeThing Went Wring Try Again Later")
       }
     } catch (error) {
-      alert("LogoutFailed")
+      toast.error("LogoutFailed")
     }
   }
 

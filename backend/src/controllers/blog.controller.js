@@ -49,7 +49,7 @@ const createblog = asyncHandler(async (req, res) => {
 
 const getblog = asyncHandler(async (req, res) => {
   const startIndex = parseInt(req.query.startIndex) || 0
-  const limit = parseInt(req.query.limit) || 2
+  const limit = parseInt(req.query.limit) || 9
   const sortDirection = req.query.order === 'asc' ? 1 : -1
 
   const blog = await Blog.find({

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signin } from "../redux/auth/authSlice";
 import OAuth from "../components/OAuth";
+import { toast } from "react-toastify";
 
 function SignIn() {
   const { showPassword, togglepassword } = usePasswordToggle();
@@ -27,12 +28,12 @@ function SignIn() {
       });
       const data = await res.json();
       if (!res.ok) {
-        alert(data.message);
+        toast.error(data.message);
         return;
       }
 
       dispatch(signin({ user: data.data.user, token: data.data.accessToken }));
-      alert(data.message);
+      toast.success(data.message);
       setFormData({ email: "", password: "" });
       navigate("/");
     } catch (error) {
@@ -40,25 +41,32 @@ function SignIn() {
     }
   };
   return (
-    <div className="w-full min-h-screen bg-black px-10 py-20">
-      <div className="max-w-7xl mx-auto flex justify-between items-center gap-16">
-        <div className="flex flex-col items-start gap-4 font-bold text-7xl text-white">
+    <div className="w-full min-h-screen bg-bg-primary dark:bg-bg-primary-dark px-4 sm:px-6 md:px-8 lg:px-10 py-12 sm:py-16 md:py-20">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-8 sm:gap-12 lg:gap-16">
+        <div className="flex flex-col items-start gap-3 sm:gap-4 font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-text dark:text-text-dark text-center lg:text-left">
           <h1>Connect Today</h1>
           <h1>And Start</h1>
-          <h1 className="text-primary">Telling Your Stories</h1>
+          <h1 className="text-accent-1-dark dark:text-accent-1-dark">
+            Telling Your Stories
+          </h1>
         </div>
-        <div className="w-full max-w-md rounded-2xl shadow-[0px_0px_30px] shadow-white p-8 bg-white">
-           <OAuth />
-          <p className="text-center text-sm my-3">or</p>
-          <h1 className="text-2xl font-semibold text-center text-gray-80 mb-6">
+        <div className="w-full max-w-md rounded-2xl shadow-[0px_0px_30px] shadow-border dark:shadow-border-dark p-6 sm:p-8 bg-card dark:bg-card-dark  border-2 border-accent-2-dark">
+          <OAuth />
+          <p className="text-center text-sm my-3 text-text-secondary dark:text-text-secondary-dark">
+            or
+          </p>
+          <h1 className="text-xl sm:text-2xl font-semibold text-center text-text dark:text-text-dark mb-6">
             Login Now
           </h1>
-          <hr />
+          <hr className="border-border dark:border-border-dark" />
           <br />
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6 mt-6">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 sm:gap-6 mt-6"
+          >
             <div className="flex flex-col gap-2">
               <label
-                className="text-gray-700 text-sm font-medium"
+                className="text-text dark:text-text-dark text-sm font-medium"
                 htmlFor="email"
               >
                 Email
@@ -67,14 +75,14 @@ function SignIn() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="px-4 py-2 rounded-lg text-gray-700 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-black/50 placeholder:text-gray-400"
+                className="px-3 sm:px-4 py-2 rounded-lg text-text dark:text-text-dark bg-muted dark:bg-muted-dark border border-border dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-accent-1 dark:focus:ring-accent-1-dark placeholder:text-text-secondary dark:placeholder:text-text-secondary-dark"
                 type="text"
                 placeholder="Enter your email"
               />
             </div>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2">
               <label
-                className="text-gray-700 text-sm font-medium"
+                className="text-text dark:text-text-dark text-sm font-medium"
                 htmlFor="password"
               >
                 Password
@@ -84,12 +92,12 @@ function SignIn() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 pr-8 rounded-lg text-gray-700 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-black/50 placeholder:text-gray-400"
+                  className="w-full px-3 sm:px-4 py-2 pr-10 rounded-lg text-text dark:text-text-dark bg-muted dark:bg-muted-dark border border-border dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-accent-1 dark:focus:ring-accent-1-dark placeholder:text-text-secondary dark:placeholder:text-text-secondary-dark"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                 />
                 <button
-                  className="absolute inset-y-0 right-3"
+                  className="absolute inset-y-0 right-3 text-text-secondary dark:text-text-secondary-dark hover:text-text dark:hover:text-text-dark"
                   type="button"
                   onClick={togglepassword}
                 >
@@ -99,16 +107,16 @@ function SignIn() {
             </div>
             <button
               type="submit"
-              className="w-full py-2 text-white rounded-lg font-medium transition cursor-pointer bg-primary hover:bg-hover"
+              className="w-full py-2 text-white rounded-lg font-medium transition cursor-pointer bg-accent-1 dark:bg-accent-1-dark hover:bg-hover dark:hover:bg-hover-dark"
             >
               Login
             </button>
             <div className="text-center text-sm">
-              <p className="text-gray-600">
+              <p className="text-text-secondary dark:text-text-secondary-dark">
                 Don&apos;t have an account?{" "}
                 <Link
                   to="/sign-up"
-                  className="font-medium text-blue-600 hover:text-blue-700 underline decoration-blue-500"
+                  className="font-medium text-accent-2 dark:text-accent-2-dark hover:text-hover dark:hover:text-hover-dark underline decoration-accent-2 dark:decoration-accent-2-dark"
                 >
                   Sign Up
                 </Link>

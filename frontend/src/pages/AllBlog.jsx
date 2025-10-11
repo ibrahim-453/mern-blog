@@ -42,17 +42,17 @@ function AllBlog() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 py-10 px-6">
+    <div className="w-full min-h-screen bg-bg-primary dark:bg-bg-primary-dark py-10 px-6">
       {blog.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg font-medium">
+        <p className="text-center text-text-secondary dark:text-text-secondary-dark text-lg font-medium">
           No Blog Found
         </p>
       ) : (
-        <div className="max-w-7xl mx-auto grid grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {blog.map((blog) => (
             <div
               key={blog._id}
-              className="bg-white rounded-2xl shadow-md border border-gray-200 flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="bg-card dark:bg-card-dark rounded-2xl shadow-md border border-border dark:border-border-dark flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               {/* Banner Image */}
               <div className="h-52 w-full overflow-hidden">
@@ -65,17 +65,17 @@ function AllBlog() {
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-gray-900 leading-snug mb-2">
+                <h3 className="text-xl font-bold text-text dark:text-text-dark leading-snug mb-2">
                   {blog.title}
                 </h3>
                 <div
-                  className="text-gray-600 text-sm line-clamp-3"
+                  className="text-text-secondary dark:text-text-secondary-dark text-sm line-clamp-3"
                   dangerouslySetInnerHTML={{
                     __html: blog.content.substring(0, 200) + "...",
                   }}
                 ></div>
 
-                <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-100">
+                <div className="mt-auto pt-5 flex items-center justify-between border-t border-border dark:border-border-dark">
                   <div className="flex items-center gap-3">
                     <img
                       className="object-cover w-10 h-10 rounded-full"
@@ -83,15 +83,18 @@ function AllBlog() {
                       alt={blog.userId?.fullname}
                     />
                     <div>
-                      <p className="text-sm font-medium text-gray-800">
+                      <p className="text-sm font-medium text-text dark:text-text-dark">
                         {blog.userId?.fullname}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-text-secondary dark:text-text-secondary-dark">
                         {new Date(blog.createdAt).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
-                  <Link to={`/read-blog/${blog.slug}`} className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+                  <Link
+                    to={`/read-blog/${blog.slug}`}
+                    className="text-accent-1 dark:text-accent-1-dark hover:text-hover dark:hover:text-hover-dark font-medium text-sm"
+                  >
                     Read More →
                   </Link>
                 </div>
@@ -105,7 +108,7 @@ function AllBlog() {
         <div className="flex justify-center mt-10">
           <button
             onClick={handleShowMore}
-            className="px-6 py-2 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 transition"
+            className="px-6 py-2 bg-text dark:bg-text-dark text-card dark:text-text text-sm font-semibold rounded-lg hover:bg-hover dark:hover:bg-border transition"
           >
             Show more
           </button>

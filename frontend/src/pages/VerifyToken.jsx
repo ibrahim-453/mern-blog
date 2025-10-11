@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function VerifyEmail() {
+function VerifyToken() {
   const { state } = useLocation();
   let email = state?.email || "";
-  const [otp, setOtp] = useState("");
+  const [resetToken, setResetToken] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/v1/auth/verify-email", {
+      const res = await fetch("/api/v1/user/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ resetToken }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -22,7 +22,7 @@ function VerifyEmail() {
         return;
       }
       toast.success(data.message);
-      navigate("/sign-in");
+      navigate("/change-password");
     } catch (error) {
       toast.error(error.message);
     }
@@ -33,19 +33,19 @@ function VerifyEmail() {
       <div className="w-full max-w-md bg-card dark:bg-card-dark backdrop-blur-md rounded-2xl shadow-xl border border-border dark:border-border-dark p-6 sm:p-8">
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text dark:text-text-dark">
-            Verify Email
+            Verify Token
           </h1>
           <p className="text-text-secondary dark:text-text-secondary-dark text-sm sm:text-base mt-2 sm:mt-3">
-            We've sent a verification code to {email}.
+            We've sent a reset code to {email}.
           </p>
         </div>
 
         <form className="flex flex-col gap-4 sm:gap-5" onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
+            placeholder="Enter Code"
+            value={resetToken}
+            onChange={(e) => setResetToken(e.target.value)}
             required
             className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border dark:border-border-dark bg-muted dark:bg-muted-dark rounded-xl text-text dark:text-text-dark placeholder-text-secondary dark:placeholder-text-secondary-dark focus:outline-none focus:ring-2 focus:ring-accent-1 dark:focus:ring-accent-1-dark focus:border-accent-1 dark:focus:border-accent-1-dark transition-all"
           />
@@ -61,4 +61,4 @@ function VerifyEmail() {
   );
 }
 
-export default VerifyEmail;
+export default VerifyToken;

@@ -18,6 +18,8 @@ import ScrollTop from './components/ScrollTop';
 import AdminBlog from './pages/AdminBlog';
 import AdminUsers from './pages/AdminUsers';
 import AdminComment from './pages/AdminComment';
+import VerifyToken from './pages/VerifyToken';
+import ChangePassword from './pages/ChangePassword';
 function App() {
   return (
     <BrowserRouter>
@@ -30,7 +32,7 @@ function App() {
           <Route path='/sign-in' element={<SignIn/>} />
           <Route path='/blogs' element={<AllBlog />} />
           <Route path='/about' element={<About/>} />
-          <Route path='/contact-us' element={<Contact/>} />
+          <Route path='/contact' element={<Contact/>} />
           <Route element={<PrivateRoute />}> 
             <Route element={<Profile />}>
                <Route path='/profile-details' element={<ProfileDetail />} /> 
@@ -38,6 +40,8 @@ function App() {
                <Route path='/all-blogs' element={<AdminBlog />} />
                <Route path='/all-users' element={<AdminUsers />} />
                <Route path='/all-comments' element={<AdminComment />} />
+               <Route path='/verify-token' element={<VerifyToken />} />
+               <Route path='change-password' element={<ChangePassword />} />
             </Route>
             <Route path='/edit-blog/:blogSlug' element={<EditBlog />} />
             <Route path='/write-blog' element={<WriteBlog />} />

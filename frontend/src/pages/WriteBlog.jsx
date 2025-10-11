@@ -45,28 +45,31 @@ function WriteBlog() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 p-6 sm:p-12">
-      <div className="max-w-5xl mx-auto flex flex-col justify-center items-center gap-10">
+    <div className="w-full min-h-screen bg-bg-primary dark:bg-bg-primary-dark p-4 sm:p-6 md:p-8 lg:p-12">
+      <div className="max-w-5xl mx-auto flex flex-col justify-center items-center gap-6 sm:gap-8 lg:gap-10">
         <div className="text-center">
-          <h1 className="font-extrabold text-4xl sm:text-5xl text-gray-800">
+          <h1 className="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-text dark:text-text-dark">
             Write a Blog
           </h1>
-          <p className="mt-2 text-gray-600 text-lg">
+          <p className="mt-2 text-text-secondary dark:text-text-secondary-dark text-base sm:text-lg">
             Share your ideas and stories with the world
           </p>
         </div>
-        <div className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 p-8 sm:p-12">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        <div className="w-full bg-card dark:bg-card-dark rounded-2xl shadow-lg border border-border dark:border-border-dark p-6 sm:p-8 lg:p-12">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-6 sm:gap-8"
+          >
             <div className="flex flex-col gap-2">
               <label
-                className="text-lg font-semibold text-gray-700"
+                className="text-base sm:text-lg font-semibold text-text dark:text-text-dark"
                 htmlFor="title"
               >
                 Title
               </label>
               <input
-                className="px-4 py-3 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 
-                           outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                className="px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-border dark:border-border-dark bg-muted dark:bg-muted-dark text-text dark:text-text-dark 
+                           outline-none focus:ring-2 focus:ring-accent-1 dark:focus:ring-accent-1-dark focus:border-accent-1 dark:focus:border-accent-1-dark"
                 name="title"
                 type="text"
                 value={blogdata.title}
@@ -77,7 +80,7 @@ function WriteBlog() {
             </div>
             <div className="flex flex-col gap-2">
               <label
-                className="text-lg font-semibold text-gray-700"
+                className="text-base sm:text-lg font-semibold text-text dark:text-text-dark"
                 htmlFor="categoryName"
               >
                 Category
@@ -87,8 +90,8 @@ function WriteBlog() {
                 value={blogdata.categoryName}
                 onChange={handleChange}
                 required
-                className="px-4 py-3 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 
-               outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                className="px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-border dark:border-border-dark bg-muted dark:bg-muted-dark text-text dark:text-text-dark 
+               outline-none focus:ring-2 focus:ring-accent-1 dark:focus:ring-accent-1-dark focus:border-accent-1 dark:focus:border-accent-1-dark"
               >
                 <option value="">Select a category</option>
                 <option value="Web Development">Web Development</option>
@@ -125,28 +128,28 @@ function WriteBlog() {
 
             <div className="flex flex-col gap-2">
               <label
-                className="text-lg font-semibold text-gray-700"
+                className="text-base sm:text-lg font-semibold text-text dark:text-text-dark"
                 htmlFor="bannerImage"
               >
                 Banner Image
               </label>
               <input
-                className="cursor-pointer block w-full text-gray-700 border border-gray-300 rounded-lg
-                           file:py-2 file:px-5 file:rounded-md file:border-0
-                           file:bg-primary file:text-white file:font-medium
-                           hover:file:bg-black transition-all"
+                className="cursor-pointer block w-full text-text dark:text-text-dark border border-border dark:border-border-dark rounded-lg
+                           file:py-2 file:px-4 sm:file:px-5 file:rounded-md file:border-0
+                           file:bg-accent-1 dark:file:bg-accent-1-dark file:text-white file:font-medium
+                           hover:file:bg-hover dark:hover:file:bg-hover-dark transition-all"
                 name="bannerImage"
                 onChange={handleFileChange}
                 type="file"
                 accept="image/*"
                 required
               />
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-text-secondary dark:text-text-secondary-dark">
                 Upload a banner for your blog post
               </p>
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-lg font-semibold text-gray-700">
+              <label className="text-base sm:text-lg font-semibold text-text dark:text-text-dark">
                 Content
               </label>
               <Editor
@@ -175,8 +178,8 @@ function WriteBlog() {
             </div>
             <button
               type="submit"
-              className="w-full bg-primary py-3 text-lg font-semibold text-white rounded-lg 
-                         shadow-md hover:bg-black transition-all"
+              className="w-full bg-accent-1 dark:bg-accent-1-dark py-2 sm:py-3 text-base sm:text-lg font-semibold text-white rounded-lg 
+                         shadow-md hover:bg-hover dark:hover:bg-hover-dark transition-all"
             >
               Publish Blog
             </button>
