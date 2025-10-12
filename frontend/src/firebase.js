@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "mern-blog-9ae12.firebaseapp.com",
   projectId: "mern-blog-9ae12",
-  storageBucket: "mern-blog-9ae12.firebasestorage.app",
+  storageBucket: "mern-blog-9ae12.appspot.app",
   messagingSenderId: "271347978013",
   appId: "1:271347978013:web:b18b3d65d5ec847c1d5bf4",
   measurementId: "G-SF9Y266RSP"
