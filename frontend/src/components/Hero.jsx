@@ -19,7 +19,7 @@ function Hero() {
               Write A Blog
             </Link>
             <Link
-              to="blog"
+              to="blogs"
               className="font-semibold text-sm md:text-base lg:text-lg text-white bg-accent-2 dark:bg-accent-2-dark hover:bg-hover dark:hover:bg-hover-dark px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-2.5 rounded-md transition-all text-center"
             >
               Read A Blog

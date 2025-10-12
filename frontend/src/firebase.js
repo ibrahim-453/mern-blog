@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -9,7 +10,7 @@ const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "mern-blog-9ae12.firebaseapp.com",
   projectId: "mern-blog-9ae12",
-  storageBucket: "mern-blog-9ae12.appspot.app",
+  storageBucket: "mern-blog-9ae12.firebasestorage.app",
   messagingSenderId: "271347978013",
   appId: "1:271347978013:web:b18b3d65d5ec847c1d5bf4",
   measurementId: "G-SF9Y266RSP"
@@ -17,3 +18,4 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

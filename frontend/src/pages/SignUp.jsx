@@ -14,7 +14,7 @@ function SignUp() {
     password: "",
   });
   const navigate = useNavigate();
-  const API_BASE = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,7 +22,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_BASE}/auth/sign-up`, {
+      const res = await fetch(`/api/v1/auth/sign-up`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

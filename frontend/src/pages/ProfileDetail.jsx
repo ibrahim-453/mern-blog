@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/auth/authSlice";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ProfileDetail() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const fileRef = useRef(null);
   const navigate = useNavigate();
- const API_BASE = import.meta.env.VITE_API_URL;
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -18,21 +19,21 @@ function ProfileDetail() {
     formData.append("profilepic", file);
 
     try {
-      const res = await fetch(`${API_BASE}/user/change-profile-photo`, {
+      const res = await fetch(`/api/v1/user/change-profile-photo`, {
         method: "POST",
         body: formData,
         credentials: "include",
       });
       const data = await res.json();
       if (!res.ok) {
-        alert(data.message || "Failed To Update Image");
+        toast.error(data.message || "Failed To Update Image");
         return;
       }
-      alert(data.message);
+      toast.success(data.message);
       dispatch(setUser({ ...user, profilephoto: data.data?.profilephoto }));
     } catch (error) {
       console.log(error.message);
-      alert("Something went wrong");
+      toast.error("Something went wrong");
     }
   };
 
@@ -47,11 +48,13 @@ function ProfileDetail() {
       });
       const data = await res.json();
       if (!res.ok) {
-        alert(data.message);
+        toast.error(data.message);
       }
-      alert(data.message);
+      toast.success(data.message);
       navigate("/verify-token", { state: { email: user.email } });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message)
+    }
   };
   return (
     <div className="flex flex-col justify-center items-center gap-6 sm:gap-10 p-4 sm:p-6 lg:p-10 bg-card dark:bg-card-dark">

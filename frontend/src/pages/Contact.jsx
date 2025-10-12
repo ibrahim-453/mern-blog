@@ -9,7 +9,7 @@ function Contact() {
     subject: "",
     message: "",
   });
- const API_BASE = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -18,7 +18,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${API_BASE}/contact/send-message`, {
+      const res = await fetch(`/api/v1/contact/send-message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

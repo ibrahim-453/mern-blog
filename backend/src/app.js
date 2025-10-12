@@ -10,7 +10,7 @@ import contactRouter from "./routes/contact.routes.js";
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN_PRODUCTION,
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
@@ -25,9 +25,5 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/comment", commentRouter);
 app.use("/api/v1/contact", contactRouter);
-
-app.get("/", (req, res) => {
-  res.status(200).send("✅ Backend running in production");
-});
 
 export { app };

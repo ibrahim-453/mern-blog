@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 function AllBlog() {
   const [blog, setBlog] = useState([]);
   const [showmore, setShowMore] = useState(true);
- const API_BASE = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch(`${API_BASE}/blog/get-blog`, {
+        const res = await fetch(`/api/v1/blog/get-blog`, {
           method: "GET",
         });
         const data = await res.json();
@@ -28,7 +28,7 @@ function AllBlog() {
   const handleShowMore = async () => {
     const startIndex = blog.length;
     try {
-      const res = await fetch(`${API_BASE}/blog/get-blog?startIndex=${startIndex}`);
+      const res = await fetch(`/api/v1/blog/get-blog?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setBlog((prev) => [...prev, ...data.data.blog]);

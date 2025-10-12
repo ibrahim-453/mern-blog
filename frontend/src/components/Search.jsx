@@ -6,13 +6,13 @@ function Search() {
   const [suggestions, setSuggestions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef(null);
- const API_BASE = import.meta.env.VITE_API_URL;
+ 
   useEffect(() => {
     if (!term) return setSuggestions([]);
 
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`${API_BASE}/blog/get-blog?searchTerm=${term}`);
+        const res = await fetch(`/api/v1/blog/get-blog?searchTerm=${term}`);
         const data = await res.json();
         if (res.ok) setSuggestions(data.data.blog || []);
       } catch (error) {

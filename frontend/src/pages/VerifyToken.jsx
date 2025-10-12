@@ -7,11 +7,11 @@ function VerifyToken() {
   let email = state?.email || "";
   const [resetToken, setResetToken] = useState("");
   const navigate = useNavigate();
- const API_BASE = import.meta.env.VITE_API_URL;
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_BASE}/user/reset-password`, {
+      const res = await fetch(`/api/v1/user/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resetToken }),

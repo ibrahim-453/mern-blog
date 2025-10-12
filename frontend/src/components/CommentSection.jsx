@@ -8,12 +8,12 @@ function CommentSection({ blogId }) {
   const { user } = useSelector((state) => state.auth);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const API_BASE = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (comment.length > 200) return;
     try {
-      const res = await fetch(`${API_BASE}/comment/write-comment`, {
+      const res = await fetch(`/api/v1/comment/write-comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ blogId, content: comment }),
@@ -34,7 +34,7 @@ function CommentSection({ blogId }) {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`${API_BASE}/comment/blog-comment/${blogId}`);
+        const res = await fetch(`/api/v1/comment/blog-comment/${blogId}`);
         const data = await res.json();
         if (!res.ok) {
           toast.error(data.message);

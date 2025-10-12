@@ -15,7 +15,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-  const API_BASE = import.meta.env.VITE_API_URL;
+ 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -28,7 +28,7 @@ function NavBar() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(`${API_BASE}/auth/sign-out`, {
+      const res = await fetch(`/api/v1/auth/sign-out`, {
         method: "POST",
         credentials: "include",
       });

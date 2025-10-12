@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 function AdminBlog() {
   const [allBlog, setAllBlog] = useState([]);
   const [showMore, setShowMore] = useState(true);
- const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchallBlog = async () => {
       try {
-        const res = await fetch(`${API_BASE}/blog/get-blog`);
+        const res = await fetch("/api/v1/blog/get-blog");
         const data = await res.json();
         if (res.ok) {
           setAllBlog(data.data.blog || []);
@@ -27,7 +27,7 @@ function AdminBlog() {
   const handleShowMore = async () => {
     const startIndex = allBlog.length;
     try {
-      const res = await fetch(`${API_BASE}/blog/get-blog?startIndex=${startIndex}`);
+      const res = await fetch(`/api/v1/blog/get-blog?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setAllBlog((prev) => [...prev, ...data.data.blog]);
@@ -37,7 +37,7 @@ function AdminBlog() {
       }
     } catch (error) {
       console.log("Load more error:", error.message);
-      alert("Failed to load more blogs");
+      toast.errro("Failed to load more blogs");
     }
   };
 
@@ -47,20 +47,20 @@ function AdminBlog() {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/blog/delete-blog/${blogId}`, {
+      const res = await fetch(`/api/v1/blog/delete-blog/${blogId}`, {
         method: "DELETE",
         credentials: "include",
       });
       const data = await res.json();
       if (res.ok) {
         setAllBlog((prev) => prev.filter((b) => b._id !== blogId));
-        alert(data.message || "Blog deleted successfully");
+        toast.success(data.message || "Blog deleted successfully");
       } else {
-        alert(data.message || "Failed to delete blog");
+        toast.error(data.message || "Failed to delete blog");
       }
     } catch (error) {
       console.log("Delete error:", error.message);
-      alert("Something went wrong while deleting the blog");
+      toast.error("Something went wrong while deleting the blog");
     }
   };
 

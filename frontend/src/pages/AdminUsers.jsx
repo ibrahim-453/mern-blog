@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Trash2, Mail, User } from "lucide-react";
+import { toast } from "react-toastify";
 
 function AdminUsers() {
   const [allUsers, setAllUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
- const API_BASE = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const res = await fetch(`${API_BASE}/user/get-users`, {
+        const res = await fetch(`/api/v1/user/get-users`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -18,11 +18,11 @@ function AdminUsers() {
             setShowMore(false);
           }
         } else {
-          alert(data.message || "Failed to fetch users");
+          toast.error(data.message || "Failed to fetch users");
         }
       } catch (error) {
         console.log("Fetch error:", error.message);
-        alert("Failed to load users");
+        toast.error("Failed to load users");
       }
     };
     fetchAllUsers();
@@ -32,7 +32,7 @@ function AdminUsers() {
     const startIndex = allUsers.length;
     try {
       const res = await fetch(
-        `${API_BASE}/user/get-users?startIndex=${startIndex}`,
+        `/api/v1/user/get-users?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -44,11 +44,11 @@ function AdminUsers() {
           setShowMore(false);
         }
       } else {
-        alert(data.message || "Failed to load more users");
+        toast.error(data.message || "Failed to load more users");
       }
     } catch (error) {
       console.log("Load more error:", error.message);
-      alert("Failed to load more users");
+      toast.error("Failed to load more users");
     }
   };
 
@@ -62,20 +62,20 @@ function AdminUsers() {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/user/delete-user/${userId}`, {
+      const res = await fetch(`/api/v1/user/delete-user/${userId}`, {
         method: "DELETE",
         credentials: "include",
       });
       const data = await res.json();
       if (res.ok) {
         setAllUsers((prev) => prev.filter((u) => u._id !== userId));
-        alert(data.message || "User deleted successfully");
+        toast.success(data.message || "User deleted successfully");
       } else {
-        alert(data.message || "Failed to delete user");
+        toast.error(data.message || "Failed to delete user");
       }
     } catch (error) {
       console.log("Delete error:", error.message);
-      alert("Something went wrong while deleting the user");
+      toast.error("Something went wrong while deleting the user");
     }
   };
 

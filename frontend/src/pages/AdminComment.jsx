@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Trash2, MessageSquare } from "lucide-react";
+import { toast } from "react-toastify";
 
 function AdminComment() {
   const [allComments, setAllComments] = useState([]);
   const [showMore, setShowMore] = useState(true);
- const API_BASE = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchAllComments = async () => {
       try {
-        const res = await fetch(`${API_BASE}/comment/get-comment`, {
+        const res = await fetch("/api/v1/comment/get-comment", {
           credentials: "include",
         });
         const data = await res.json();
@@ -18,11 +19,11 @@ function AdminComment() {
             setShowMore(false);
           }
         } else {
-          alert(data.message || "Failed to fetch comments");
+          toast.error(data.message || "Failed to fetch comments");
         }
       } catch (error) {
         console.log("Fetch error:", error.message);
-        alert("Failed to load comments");
+        toast.error("Failed to load comments");
       }
     };
     fetchAllComments();
@@ -32,7 +33,7 @@ function AdminComment() {
     const startIndex = allComments.length;
     try {
       const res = await fetch(
-        `${API_BASE}/comment/get-comment?startIndex=${startIndex}`,
+        `/api/v1/comment/get-comment?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -44,11 +45,11 @@ function AdminComment() {
           setShowMore(false);
         }
       } else {
-        alert(data.message || "Failed to load more comments");
+        toast.error(data.message || "Failed to load more comments");
       }
     } catch (error) {
       console.log("Load more error:", error.message);
-      alert("Failed to load more comments");
+      toast.error("Failed to load more comments");
     }
   };
 
@@ -58,20 +59,20 @@ function AdminComment() {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/comment/delete-comment/${commentId}`, {
+      const res = await fetch(`/api/v1/comment/delete-comment/${commentId}`, {
         method: "DELETE",
         credentials: "include",
       });
       const data = await res.json();
       if (res.ok) {
         setAllComments((prev) => prev.filter((c) => c._id !== commentId));
-        alert(data.message || "Comment deleted successfully");
+        toast.success(data.message || "Comment deleted successfully");
       } else {
-        alert(data.message || "Failed to delete comment");
+        toast.error(data.message || "Failed to delete comment");
       }
     } catch (error) {
       console.log("Delete error:", error.message);
-      alert("Something went wrong while deleting the comment");
+      toast.error("Something went wrong while deleting the comment");
     }
   };
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { toast } from "react-toastify";
 
 function WriteBlog() {
   const [blogdata, setBlogData] = useState({
@@ -8,8 +9,7 @@ function WriteBlog() {
     content: "",
   });
   const [bannerImage, setBannerImage] = useState(null);
-  const API_BASE = import.meta.env.VITE_API_URL;
-
+ 
   const handleChange = (e) => {
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
   };
@@ -28,20 +28,20 @@ function WriteBlog() {
     (formData.append("content", blogdata.content),
       formData.append("bannerImage", bannerImage));
     try {
-      const res = await fetch(`${API_BASE}/blog/create-blog`, {
+      const res = await fetch(`/api/v1/blog/create-blog`, {
         method: "POST",
         body: formData,
         credentials: "include",
       });
       const data = await res.json();
       if (!res.ok) {
-        alert(data.message || "Something Went Wrong while Creating Blog");
+        toast.error(data.message || "Something Went Wrong while Creating Blog");
       }
-      alert(data.message);
+      toast.success(data.message);
       setBlogData({ title: "", categoryName: "", content: "" });
       setBannerImage(null);
     } catch (error) {
-      alert(error.message || "Something Went Wrong");
+      toast.error(error.message || "Something Went Wrong");
     }
   };
 

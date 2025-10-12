@@ -14,7 +14,7 @@ function EditBlog() {
     bannerUrl: "",
   });
   const [bannerImage, setBannerImage] = useState(null);
-   const API_BASE = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) =>
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
 
@@ -26,7 +26,7 @@ function EditBlog() {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const res = await fetch(`${API_BASE}/blog/get-blog?slug=${blogSlug}`, {
+        const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`, {
           method: "GET",
           credentials: "include",
         });
@@ -57,7 +57,7 @@ function EditBlog() {
     if (bannerImage) formData.append("bannerImage", bannerImage);
 
     try {
-      const res = await fetch(`${API_BASE}/blog/edit-blog/${blogdata.id}`, {
+      const res = await fetch(`/api/v1/blog/edit-blog/${blogdata.id}`, {
         method: "PUT",
         body: formData,
         credentials: "include",
@@ -201,7 +201,7 @@ function EditBlog() {
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:16px; line-height:1.6 }",
               }}
               onEditorChange={(newContent) =>
-                setBlogData({ ...blogdata, content })
+                setBlogData({ ...blogdata, content: newContent })
               }
             />
           </div>
