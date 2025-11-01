@@ -1,4 +1,4 @@
-import { app } from "./index.js";
+import { app } from "./app.js";
 import { connectDB } from "./connection/mongoose.connection.js";
 import debug from "debug";
 import dotenv from 'dotenv'
