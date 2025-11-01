@@ -89,7 +89,7 @@ function ReadBlog() {
       ) : (
         <>
           <h3 className="text-center font-bold text-6xl text-text dark:text-text-dark">
-            No Blog Found
+            Loading Blog
           </h3>
         </>
       )}

@@ -45,7 +45,7 @@ function AllBlog() {
     <div className="w-full min-h-screen bg-bg-primary dark:bg-bg-primary-dark py-10 px-6">
       {blog.length === 0 ? (
         <p className="text-center text-text-secondary dark:text-text-secondary-dark text-lg font-medium">
-          No Blog Found
+          Loading Blog
         </p>
       ) : (
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">

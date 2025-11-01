@@ -9,7 +9,7 @@ function WriteBlog() {
     content: "",
   });
   const [bannerImage, setBannerImage] = useState(null);
- 
+  const [loading,setLoading] = useState(false)
   const handleChange = (e) => {
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
   };
@@ -21,7 +21,7 @@ function WriteBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     const formData = new FormData();
     formData.append("title", blogdata.title);
     formData.append("categoryName", blogdata.categoryName);
@@ -42,6 +42,8 @@ function WriteBlog() {
       setBannerImage(null);
     } catch (error) {
       toast.error(error.message || "Something Went Wrong");
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -179,10 +181,11 @@ function WriteBlog() {
             </div>
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-accent-1 dark:bg-accent-1-dark py-2 sm:py-3 text-base sm:text-lg font-semibold text-white rounded-lg 
                          shadow-md hover:bg-hover dark:hover:bg-hover-dark transition-all"
             >
-              Publish Blog
+              {loading ? "Publishing Blog..." : "Publish Blog"}
             </button>
           </form>
         </div>

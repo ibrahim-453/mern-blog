@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
@@ -77,7 +77,6 @@ function AdminBlog() {
         </div>
       ) : (
         <>
-          {/* Desktop Table View */}
           <div className="hidden lg:block overflow-x-auto rounded-lg shadow-md border border-border dark:border-border-dark">
             <table className="w-full text-sm text-left">
               <thead className="bg-muted dark:bg-muted-dark text-text dark:text-text-dark uppercase text-xs font-semibold">
@@ -142,8 +141,6 @@ function AdminBlog() {
               </tbody>
             </table>
           </div>
-
-          {/* Mobile Card View */}
           <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
             {allBlog.map((blog) => (
               <div

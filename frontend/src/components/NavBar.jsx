@@ -15,7 +15,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
- 
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
