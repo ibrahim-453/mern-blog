@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
 
@@ -180,7 +180,6 @@ function EditBlog() {
             </label>
             <Editor
               apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
-              initialValue="<p>Write your story...</p>"
               value={blogdata.content}
               init={{
                 height: 400,
@@ -203,7 +202,8 @@ function EditBlog() {
             />
           </div>
 
-          <button
+         <div className="flex justify-center items-center gap-5">
+           <button
             type="submit"
             className="w-full py-3 text-lg font-semibold text-white rounded-lg 
             bg-accent-1 dark:bg-accent-1-dark hover:bg-hover dark:hover:bg-hover-dark 
@@ -211,6 +211,15 @@ function EditBlog() {
           >
             Update Blog
           </button>
+          <Link
+          to="/profile-details"
+            className="w-full py-3 text-lg font-semibold text-white rounded-lg 
+            bg-accent-1 text-center dark:bg-accent-1-dark hover:bg-hover dark:hover:bg-hover-dark 
+            shadow-md transition-colors" 
+          >
+          Back To Dashboard
+          </Link>
+         </div>
         </form>
       </div>
     </div>

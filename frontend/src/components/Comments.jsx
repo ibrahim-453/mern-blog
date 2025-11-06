@@ -130,7 +130,7 @@ function Comments({ comment, onEdit, onDelete }) {
           <ThumbsUp size={14} className="sm:w-4 sm:h-4" />
           <span>{likes ? "Unlike" : "Like"}</span>
           {numberoflikes > 0 && (
-            <span className="ml-1 px-1.5 sm:px-2 py-0.5 bg-bg-primary dark:bg-bg-primary-dark rounded text-xs">
+            <span className="ml-1 px-1.5 sm:px-2 py-0.5 text-blue-500 bg-bg-primary dark:bg-bg-primary-dark rounded text-xs">
               {numberoflikes}
             </span>
           )}
