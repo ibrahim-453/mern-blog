@@ -1,4 +1,12 @@
-import { Eye, EyeClosed, User, Mail, Lock, Sparkles, ArrowRight } from "lucide-react";
+import {
+  Eye,
+  EyeClosed,
+  User,
+  Mail,
+  Lock,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
 import usePasswordToggle from "../hooks/ShowPassword";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,14 +22,14 @@ function SignUp() {
     password: "",
   });
   const navigate = useNavigate();
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
       const res = await fetch(`/api/v1/auth/sign-up`, {
         method: "POST",
@@ -39,23 +47,20 @@ function SignUp() {
     } catch (error) {
       console.error("Something Went Wrong", error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   return (
     <div className="w-full min-h-screen bg-bg-primary dark:bg-bg-primary-dark overflow-hidden">
-      {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute top-10 left-10 w-96 h-96 bg-accent-1 dark:bg-accent-1-dark rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob"></div>
         <div className="absolute top-20 right-10 w-96 h-96 bg-accent-2 dark:bg-accent-2-dark rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-accent-1 dark:bg-accent-1-dark rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-12 sm:py-16 md:py-20">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-10 sm:gap-12 lg:gap-16">
-          {/* Left Side - Hero Text */}
           <div className="flex-1 flex flex-col gap-4 sm:gap-5 text-center lg:text-left animate-fade-in-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 mx-auto lg:mx-0 w-fit rounded-full bg-accent-1/10 dark:bg-accent-1-dark/10 border border-accent-1/20 dark:border-accent-1-dark/20 backdrop-blur-sm">
               <Sparkles className="w-4 h-4 text-accent-1 dark:text-accent-1-dark" />
@@ -77,36 +82,45 @@ function SignUp() {
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-text-secondary dark:text-text-secondary-dark max-w-xl mx-auto lg:mx-0 mt-4">
-              Join thousands of writers sharing their stories and inspiring others every day
+              Join thousands of writers sharing their stories and inspiring
+              others every day
             </p>
 
-            {/* Features List - Hidden on mobile */}
             <div className="hidden lg:flex flex-col gap-4 mt-8">
               {[
                 "Free account with unlimited articles",
                 "Connect with readers worldwide",
-                "Build your personal brand"
+                "Build your personal brand",
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-3">
                   <div className="flex-shrink-0 w-6 h-6 bg-accent-1 dark:bg-accent-1-dark rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="w-4 h-4 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   </div>
-                  <span className="text-text dark:text-text-dark font-medium">{feature}</span>
+                  <span className="text-text dark:text-text-dark font-medium">
+                    {feature}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right Side - Sign Up Form */}
           <div className="w-full max-w-md lg:max-w-lg animate-fade-in-right">
             <div className="relative bg-card dark:bg-card-dark rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 border border-border dark:border-border-dark">
-              {/* Decorative gradient border effect */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent-1 via-accent-2 to-accent-1 dark:from-accent-1-dark dark:via-accent-2-dark dark:to-accent-1-dark opacity-20 blur-xl"></div>
-              
+
               <div className="relative">
-                {/* Form Header */}
                 <div className="text-center mb-8">
                   <h2 className="text-2xl sm:text-3xl font-bold text-text dark:text-text-dark mb-2">
                     Create Account
@@ -116,10 +130,8 @@ function SignUp() {
                   </p>
                 </div>
 
-                {/* OAuth */}
                 <OAuth />
 
-                {/* Divider */}
                 <div className="relative my-6">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-border dark:border-border-dark"></div>
@@ -131,9 +143,7 @@ function SignUp() {
                   </div>
                 </div>
 
-                {/* Form */}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  {/* Full Name */}
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="fullname"
@@ -152,7 +162,6 @@ function SignUp() {
                     />
                   </div>
 
-                  {/* Username */}
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="username"
@@ -171,7 +180,6 @@ function SignUp() {
                     />
                   </div>
 
-                  {/* Email */}
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="email"
@@ -190,7 +198,6 @@ function SignUp() {
                     />
                   </div>
 
-                  {/* Password */}
                   <div className="flex flex-col gap-2">
                     <label
                       htmlFor="password"
@@ -213,12 +220,15 @@ function SignUp() {
                         onClick={togglepassword}
                         className="absolute inset-y-0 right-3 flex items-center text-text-secondary dark:text-text-secondary-dark hover:text-accent-1 dark:hover:text-accent-1-dark transition-colors"
                       >
-                        {showPassword ? <Eye size={20} /> : <EyeClosed size={20} />}
+                        {showPassword ? (
+                          <Eye size={20} />
+                        ) : (
+                          <EyeClosed size={20} />
+                        )}
                       </button>
                     </div>
                   </div>
 
-                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={loading}
@@ -231,7 +241,6 @@ function SignUp() {
                     </span>
                   </button>
 
-                  {/* Sign In Link */}
                   <div className="text-center text-sm pt-2">
                     <p className="text-text-secondary dark:text-text-secondary-dark">
                       Already have an account?{" "}
@@ -252,9 +261,16 @@ function SignUp() {
 
       <style jsx>{`
         @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
         }
 
         @keyframes fade-in-left {

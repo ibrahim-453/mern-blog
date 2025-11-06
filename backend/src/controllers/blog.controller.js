@@ -98,7 +98,7 @@ const editblog = asyncHandler(async (req, res) => {
   let userId = req.user._id;
 
   let blog = await Blog.findById(blogId).populate("userId");
-  if (blog.userId._id.toString() !== userId.toString() || req.user.role !=="admin") {
+  if (blog.userId._id.toString() !== userId.toString() && req.user.role !=="admin") {
     throw new ApiError(400, "Unaothorized Request");
   }
 
@@ -146,9 +146,9 @@ const deleteblog = asyncHandler(async (req, res) => {
   let userId = req.user._id;
 
   let blog = await Blog.findById(blogId).populate("userId");
-  if (blog.userId._id.toString() !== userId.toString() || req.user.role !=="admin") {
-    throw new ApiError(400, "Unaothorized Request");
-  }
+  if (blog.userId._id.toString() !== userId.toString() && req.user.role !== "admin") {
+  throw new ApiError(400, "Unauthorized Request");
+}
   const deletedBlog = await Blog.findByIdAndDelete(blogId);
   await User.findByIdAndUpdate(blog.userId, {
     $pull: {

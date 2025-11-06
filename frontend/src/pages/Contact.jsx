@@ -43,7 +43,7 @@ function Contact() {
   return (
     <div className="w-full min-h-screen bg-bg-primary dark:bg-bg-primary-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-12 sm:py-16 md:py-20">
-        {/* Hero Section */}
+
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text dark:text-text-dark mb-4 sm:mb-6">
             Get In Touch
@@ -55,7 +55,7 @@ function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
-          {/* Contact Information */}
+
           <div className="lg:col-span-1 space-y-6 sm:space-y-8">
             <div className="bg-card dark:bg-card-dark rounded-xl p-6 sm:p-8 border border-border dark:border-border-dark">
               <div className="flex items-start gap-4">
@@ -115,7 +115,6 @@ function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
           <div className="lg:col-span-2">
             <div className="bg-card dark:bg-card-dark rounded-2xl p-6 sm:p-8 md:p-10 border border-border dark:border-border-dark">
               <h2 className="text-2xl sm:text-3xl font-bold text-text dark:text-text-dark mb-6 sm:mb-8">

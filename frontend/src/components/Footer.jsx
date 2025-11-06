@@ -5,7 +5,6 @@ function Footer() {
   return (
     <footer className="bg-card dark:bg-card-dark border-t border-border dark:border-border-dark text-text-secondary dark:text-text-secondary-dark">
       <div className="container mx-auto px-6 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Column 1: Brand */}
         <div>
           <h2 className="text-lg font-semibold text-text dark:text-text-dark mb-3">
             MyBrand
@@ -14,8 +13,6 @@ function Footer() {
             Building clean, fast, and intelligent web experiences for everyone.
           </p>
         </div>
-
-        {/* Column 2: Quick Links */}
         <div>
           <h3 className="text-base font-semibold text-text dark:text-text-dark mb-3">
             Quick Links
@@ -55,8 +52,6 @@ function Footer() {
             </li>
           </ul>
         </div>
-
-        {/* Column 3: Resources */}
         <div>
           <h3 className="text-base font-semibold text-text dark:text-text-dark mb-3">
             Resources
@@ -88,18 +83,14 @@ function Footer() {
             </li>
           </ul>
         </div>
-
-        {/* Column 4: Socials */}
         <div>
           <h3 className="text-base font-semibold text-text dark:text-text-dark mb-3">
             Follow Us
           </h3>
           <div className="flex gap-5">
-            {/* Facebook */}
             <a href="https://facebook.com" title="facebook">
               <img src={facebook} alt="Facebook" width={20} height={20} />
             </a>
-            {/* Instagram */}
             <a href="https://insatgram.com" title="instagram">
               <img src={instagram} alt="Instagram" width={20} height={20} />
             </a>

@@ -54,7 +54,7 @@ function AllBlog() {
               key={blog._id}
               className="bg-card dark:bg-card-dark rounded-2xl shadow-md border border-border dark:border-border-dark flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Banner Image */}
+
               <div className="h-52 w-full overflow-hidden">
                 <img
                   className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
@@ -63,7 +63,6 @@ function AllBlog() {
                 />
               </div>
 
-              {/* Content */}
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold text-text dark:text-text-dark leading-snug mb-2">
                   {blog.title}

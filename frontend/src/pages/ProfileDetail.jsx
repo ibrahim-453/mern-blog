@@ -61,7 +61,7 @@ function ProfileDetail() {
   return (
     <div className="min-h-screen bg-bg-primary dark:bg-bg-primary-dark py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-5xl mx-auto">
-        {/* Header Section */}
+
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text dark:text-text-dark mb-3">
             Profile Settings
@@ -71,14 +71,12 @@ function ProfileDetail() {
           </p>
         </div>
 
-        {/* Main Card */}
         <div className="bg-card dark:bg-card-dark rounded-3xl border border-border dark:border-border-dark shadow-xl overflow-hidden">
-          {/* Profile Header with Gradient Background */}
+
           <div className="relative h-32 sm:h-40 md:h-48 bg-gradient-to-br from-accent-1 to-accent-2 dark:from-accent-1-dark dark:to-accent-2-dark">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
           </div>
 
-          {/* Profile Picture Section */}
           <div className="relative px-6 sm:px-8 md:px-10 pb-8 sm:pb-10 md:pb-12">
             <div className="flex flex-col items-center -mt-16 sm:-mt-20 md:-mt-24">
               <div className="relative group">
@@ -103,7 +101,6 @@ function ProfileDetail() {
                 />
               </div>
 
-              {/* User Badge */}
               <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-1/10 dark:bg-accent-1-dark/10 border border-accent-1/20 dark:border-accent-1-dark/20">
                 <Shield className="w-4 h-4 text-accent-1 dark:text-accent-1-dark" />
                 <span className="text-sm font-medium text-text dark:text-text-dark">
@@ -112,9 +109,7 @@ function ProfileDetail() {
               </div>
             </div>
 
-            {/* Information Grid */}
             <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-              {/* Full Name Card */}
               <div className="group bg-bg-primary dark:bg-bg-primary-dark rounded-2xl p-5 sm:p-6 border border-border dark:border-border-dark hover:border-accent-1 dark:hover:border-accent-1-dark transition-all duration-300 hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-accent-1/10 dark:bg-accent-1-dark/10 rounded-xl flex items-center justify-center group-hover:bg-accent-1 dark:group-hover:bg-accent-1-dark transition-colors duration-300">
@@ -131,7 +126,6 @@ function ProfileDetail() {
                 </div>
               </div>
 
-              {/* Username Card */}
               <div className="group bg-bg-primary dark:bg-bg-primary-dark rounded-2xl p-5 sm:p-6 border border-border dark:border-border-dark hover:border-accent-2 dark:hover:border-accent-2-dark transition-all duration-300 hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-accent-2/10 dark:bg-accent-2-dark/10 rounded-xl flex items-center justify-center group-hover:bg-accent-2 dark:group-hover:bg-accent-2-dark transition-colors duration-300">
@@ -148,7 +142,6 @@ function ProfileDetail() {
                 </div>
               </div>
 
-              {/* Email Card - Full Width */}
               <div className="lg:col-span-2 group bg-bg-primary dark:bg-bg-primary-dark rounded-2xl p-5 sm:p-6 border border-border dark:border-border-dark hover:border-accent-1 dark:hover:border-accent-1-dark transition-all duration-300 hover:shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-accent-1/10 dark:bg-accent-1-dark/10 rounded-xl flex items-center justify-center group-hover:bg-accent-1 dark:group-hover:bg-accent-1-dark transition-colors duration-300">
@@ -166,7 +159,6 @@ function ProfileDetail() {
               </div>
             </div>
 
-            {/* Security Section */}
             <div className="mt-8 sm:mt-10 p-6 sm:p-8 bg-gradient-to-br from-accent-1/5 to-accent-2/5 dark:from-accent-1-dark/5 dark:to-accent-2-dark/5 rounded-2xl border border-accent-1/20 dark:border-accent-1-dark/20">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-start gap-4">

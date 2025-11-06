@@ -7,7 +7,9 @@ import { toast } from "react-toastify";
 function Comments({ comment, onEdit, onDelete }) {
   const { user } = useSelector((state) => state.auth);
   const [likes, setLikes] = useState(false);
-  const [numberoflikes, setNumberOfLikes] = useState(comment.numberoflikes || 0);
+  const [numberoflikes, setNumberOfLikes] = useState(
+    comment.numberoflikes || 0
+  );
   const [isEdit, setIsEdit] = useState(false);
   const [editcomment, setEditComment] = useState("");
   const handleLike = async (commentId) => {
@@ -38,7 +40,7 @@ function Comments({ comment, onEdit, onDelete }) {
     try {
       const res = await fetch(`/api/v1/comment/delete-comment/${commentId}`, {
         method: "DELETE",
-        credentials: "include"
+        credentials: "include",
       });
       const data = await res.json();
       onDelete(commentId);
@@ -52,7 +54,7 @@ function Comments({ comment, onEdit, onDelete }) {
       const res = await fetch(`/api/v1/comment/edit-comment/${commentId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: editcomment })
+        body: JSON.stringify({ content: editcomment }),
       });
       const data = await res.json();
       if (!res.ok) {

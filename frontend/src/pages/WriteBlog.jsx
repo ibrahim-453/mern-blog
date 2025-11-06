@@ -9,7 +9,7 @@ function WriteBlog() {
     content: "",
   });
   const [bannerImage, setBannerImage] = useState(null);
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
   };
@@ -21,7 +21,7 @@ function WriteBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const formData = new FormData();
     formData.append("title", blogdata.title);
     formData.append("categoryName", blogdata.categoryName);
@@ -43,7 +43,7 @@ function WriteBlog() {
     } catch (error) {
       toast.error(error.message || "Something Went Wrong");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 

@@ -82,7 +82,7 @@ function EditBlog() {
           className="w-full bg-card dark:bg-card-dark border border-border dark:border-border-dark 
           rounded-2xl shadow-lg p-6 sm:p-10 flex flex-col gap-6"
         >
-          {/* Title */}
+
           <div className="flex flex-col gap-2">
             <label className="text-lg font-semibold text-text-secondary dark:text-text-secondary-dark">
               Title
@@ -100,7 +100,6 @@ function EditBlog() {
             />
           </div>
 
-          {/* Category */}
           <div className="flex flex-col gap-2">
             <label className="text-lg font-semibold text-text-secondary dark:text-text-secondary-dark">
               Category
@@ -147,7 +146,6 @@ function EditBlog() {
             </select>
           </div>
 
-          {/* Banner */}
           <div className="flex flex-col gap-3">
             <label className="text-lg font-semibold text-text-secondary dark:text-text-secondary-dark">
               Banner Image
@@ -176,7 +174,6 @@ function EditBlog() {
             </p>
           </div>
 
-          {/* Content */}
           <div className="flex flex-col gap-2">
             <label className="text-lg font-semibold text-text-secondary dark:text-text-secondary-dark">
               Content
@@ -206,7 +203,6 @@ function EditBlog() {
             />
           </div>
 
-          {/* Button */}
           <button
             type="submit"
             className="w-full py-3 text-lg font-semibold text-white rounded-lg 
