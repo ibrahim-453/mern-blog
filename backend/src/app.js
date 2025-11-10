@@ -26,8 +26,4 @@ app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/comment", commentRouter);
 app.use("/api/v1/contact", contactRouter);
 
-app.get("/", (req, res) => {
-  res.json({ status: "Server running via Vercel Serverless Function" });
-});
-
 export { app };
