@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Trash2, Mail, User } from "lucide-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function AdminUsers() {
   const [allUsers, setAllUsers] = useState([]);
@@ -8,7 +9,7 @@ function AdminUsers() {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const res = await fetch(`/api/v1/user/get-users`, {
+        const res = await fetch(`${BASE_URL}/api/v1/user/get-users`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -32,7 +33,7 @@ function AdminUsers() {
     const startIndex = allUsers.length;
     try {
       const res = await fetch(
-        `/api/v1/user/get-users?startIndex=${startIndex}`,
+        `${BASE_URL}/api/v1/user/get-users?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -62,7 +63,7 @@ function AdminUsers() {
     }
 
     try {
-      const res = await fetch(`/api/v1/user/delete-user/${userId}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/user/delete-user/${userId}`, {
         method: "DELETE",
         credentials: "include",
       });

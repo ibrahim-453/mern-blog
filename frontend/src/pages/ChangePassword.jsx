@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import usePasswordToggle from "../hooks/ShowPassword";
 import { Eye, EyeClosed } from "lucide-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
@@ -12,7 +13,7 @@ function ChangePassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/v1/user/change-password`, {
+      const res = await fetch(`${BASE_URL}/api/v1/user/change-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newPassword }),

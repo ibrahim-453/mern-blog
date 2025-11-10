@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function CommentSection({ blogId }) {
   const { user } = useSelector((state) => state.auth);
@@ -13,7 +14,7 @@ function CommentSection({ blogId }) {
     e.preventDefault();
     if (comment.length > 200) return;
     try {
-      const res = await fetch(`/api/v1/comment/write-comment`, {
+      const res = await fetch(`${BASE_URL}/api/v1/comment/write-comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ blogId, content: comment }),
@@ -34,7 +35,9 @@ function CommentSection({ blogId }) {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`/api/v1/comment/blog-comment/${blogId}`);
+        const res = await fetch(
+          `${BASE_URL}/api/v1/comment/blog-comment/${blogId}`
+        );
         const data = await res.json();
         if (!res.ok) {
           toast.error(data.message);

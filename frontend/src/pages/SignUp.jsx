@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function SignUp() {
   const { showPassword, togglepassword } = usePasswordToggle();
@@ -31,7 +32,7 @@ function SignUp() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/auth/sign-up`, {
+      const res = await fetch(`${BASE_URL}/api/v1/auth/sign-up`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

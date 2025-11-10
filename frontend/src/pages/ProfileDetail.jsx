@@ -1,9 +1,10 @@
-import { Edit2, User, Mail, AtSign, Lock, Camera, Shield } from "lucide-react";
+import { User, Mail, AtSign, Lock, Camera, Shield } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/auth/authSlice";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function ProfileDetail() {
   const { user } = useSelector((state) => state.auth);
@@ -19,7 +20,7 @@ function ProfileDetail() {
     formData.append("profilepic", file);
 
     try {
-      const res = await fetch(`/api/v1/user/change-profile-photo`, {
+      const res = await fetch(`${BASE_URL}/api/v1/user/change-profile-photo`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -43,7 +44,7 @@ function ProfileDetail() {
 
   const sentResetToken = async () => {
     try {
-      const res = await fetch("/api/v1/user/reset-password-token", {
+      const res = await fetch(`${BASE_URL}/api/v1/user/reset-password-token`, {
         method: "POST",
         credentials: "include",
       });
@@ -61,7 +62,6 @@ function ProfileDetail() {
   return (
     <div className="min-h-screen bg-bg-primary dark:bg-bg-primary-dark py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-5xl mx-auto">
-
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text dark:text-text-dark mb-3">
             Profile Settings
@@ -72,7 +72,6 @@ function ProfileDetail() {
         </div>
 
         <div className="bg-card dark:bg-card-dark rounded-3xl border border-border dark:border-border-dark shadow-xl overflow-hidden">
-
           <div className="relative h-32 sm:h-40 md:h-48 bg-gradient-to-br from-accent-1 to-accent-2 dark:from-accent-1-dark dark:to-accent-2-dark">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00em0wLTEwYzAtMi4yMS0xLjc5LTQtNC00cy00IDEuNzktNCA0IDEuNzkgNCA0IDQgNC0xLjc5IDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
           </div>
@@ -170,7 +169,8 @@ function ProfileDetail() {
                       Password & Security
                     </h3>
                     <p className="text-sm sm:text-base text-text-secondary dark:text-text-secondary-dark">
-                      Keep your account secure by updating your password regularly
+                      Keep your account secure by updating your password
+                      regularly
                     </p>
                   </div>
                 </div>

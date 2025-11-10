@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
+import { BASE_URL } from "../config";
 
 function Search() {
   const [term, setTerm] = useState("");
@@ -12,7 +13,7 @@ function Search() {
 
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?searchTerm=${term}`);
+        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog?searchTerm=${term}`);
         const data = await res.json();
         if (res.ok) setSuggestions(data.data.blog || []);
       } catch (error) {

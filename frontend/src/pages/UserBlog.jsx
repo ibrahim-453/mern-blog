@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function UserBlog() {
   const { user } = useSelector((state) => state.auth);
@@ -12,7 +13,9 @@ function UserBlog() {
   useEffect(() => {
     const fetchUserBlogs = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?userId=${user._id}`);
+        const res = await fetch(
+          `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}`
+        );
         const data = await res.json();
         if (res.ok) {
           setMyBlog(data.data.blog || []);
@@ -33,7 +36,7 @@ function UserBlog() {
     }
 
     try {
-      const res = await fetch(`/api/v1/blog/delete-blog/${blogId}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/blog/delete-blog/${blogId}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -54,7 +57,7 @@ function UserBlog() {
     const startIndex = myblog.length;
     try {
       const res = await fetch(
-        `/api/v1/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`
+        `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {

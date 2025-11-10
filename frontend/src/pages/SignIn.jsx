@@ -1,23 +1,17 @@
 import { useState } from "react";
 import usePasswordToggle from "../hooks/ShowPassword";
-import {
-  Eye,
-  EyeClosed,
-  Mail,
-  Lock,
-  ArrowRight,
-  Shield,
-} from "lucide-react";
+import { Eye, EyeClosed, Mail, Lock, ArrowRight, Shield } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signin } from "../redux/auth/authSlice";
 import OAuth from "../components/OAuth";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function SignIn() {
   const { showPassword, togglepassword } = usePasswordToggle();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,9 +21,9 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await fetch(`/api/v1/auth/sign-in`, {
+      const res = await fetch(`${BASE_URL}/api/v1/auth/sign-in`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -48,7 +42,7 @@ function SignIn() {
     } catch (error) {
       console.error("Something Went Wrong", error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 

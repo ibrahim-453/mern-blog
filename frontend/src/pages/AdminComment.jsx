@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Trash2, MessageSquare } from "lucide-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function AdminComment() {
   const [allComments, setAllComments] = useState([]);
@@ -9,7 +10,7 @@ function AdminComment() {
   useEffect(() => {
     const fetchAllComments = async () => {
       try {
-        const res = await fetch("/api/v1/comment/get-comment", {
+        const res = await fetch(`${BASE_URL}/api/v1/comment/get-comment`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -33,7 +34,7 @@ function AdminComment() {
     const startIndex = allComments.length;
     try {
       const res = await fetch(
-        `/api/v1/comment/get-comment?startIndex=${startIndex}`,
+        `${BASE_URL}/api/v1/comment/get-comment?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -59,10 +60,13 @@ function AdminComment() {
     }
 
     try {
-      const res = await fetch(`/api/v1/comment/delete-comment/${commentId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${BASE_URL}/api/v1/comment/delete-comment/${commentId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         setAllComments((prev) => prev.filter((c) => c._id !== commentId));

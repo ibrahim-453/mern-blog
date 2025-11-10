@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function EditBlog() {
   const { blogSlug } = useParams();
@@ -28,10 +29,13 @@ function EditBlog() {
     const fetchBlogDetails = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`, {
-          method: "GET",
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${BASE_URL}/api/v1/blog/get-blog?slug=${blogSlug}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         const data = await res.json();
         const blog = data.data.blog[0];
         if (res.ok) {
@@ -62,11 +66,14 @@ function EditBlog() {
     if (bannerImage) formData.append("bannerImage", bannerImage);
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/blog/edit-blog/${blogdata.id}`, {
-        method: "PUT",
-        body: formData,
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${BASE_URL}/api/v1/blog/edit-blog/${blogdata.id}`,
+        {
+          method: "PUT",
+          body: formData,
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       toast.success(data.message);
       if (res.ok) navigate("/my-blogs");

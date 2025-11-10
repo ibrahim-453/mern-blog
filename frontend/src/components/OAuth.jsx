@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { signin } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
+
 function OAuth() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ function OAuth() {
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
       console.log(resultFromGoogle);
-      const res = await fetch(`/api/v1/auth/google-auth`, {
+      const res = await fetch(`${BASE_URL}/api/v1/auth/google-auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

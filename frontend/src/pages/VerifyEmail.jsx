@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function VerifyEmail() {
   const { state } = useLocation();
@@ -12,7 +13,7 @@ function VerifyEmail() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/auth/verify-email`, {
+      const res = await fetch(`${BASE_URL}/api/v1/auth/verify-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),

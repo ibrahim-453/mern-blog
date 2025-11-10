@@ -6,6 +6,7 @@ import { signout } from "../redux/auth/authSlice";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import Search from "./Search";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function NavBar() {
   const { theme } = useSelector((state) => state.theme);
@@ -28,7 +29,7 @@ function NavBar() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(`/api/v1/auth/sign-out`, {
+      const res = await fetch(`${BASE_URL}/api/v1/auth/sign-out`, {
         method: "POST",
         credentials: "include",
       });

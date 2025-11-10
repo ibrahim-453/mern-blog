@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function AdminBlog() {
   const [allBlog, setAllBlog] = useState([]);
@@ -9,7 +10,7 @@ function AdminBlog() {
   useEffect(() => {
     const fetchallBlog = async () => {
       try {
-        const res = await fetch("/api/v1/blog/get-blog");
+        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog`);
         const data = await res.json();
         if (res.ok) {
           setAllBlog(data.data.blog || []);
@@ -27,7 +28,9 @@ function AdminBlog() {
   const handleShowMore = async () => {
     const startIndex = allBlog.length;
     try {
-      const res = await fetch(`/api/v1/blog/get-blog?startIndex=${startIndex}`);
+      const res = await fetch(
+        `${BASE_URL}/api/v1/blog/get-blog?startIndex=${startIndex}`
+      );
       const data = await res.json();
       if (res.ok) {
         setAllBlog((prev) => [...prev, ...data.data.blog]);
@@ -47,7 +50,7 @@ function AdminBlog() {
     }
 
     try {
-      const res = await fetch(`/api/v1/blog/delete-blog/${blogId}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/blog/delete-blog/${blogId}`, {
         method: "DELETE",
         credentials: "include",
       });

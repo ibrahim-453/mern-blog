@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../config";
 
 function AllBlog() {
   const [blog, setBlog] = useState([]);
@@ -8,7 +9,7 @@ function AllBlog() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog`, {
+        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog`, {
           method: "GET",
         });
         const data = await res.json();
@@ -28,7 +29,9 @@ function AllBlog() {
   const handleShowMore = async () => {
     const startIndex = blog.length;
     try {
-      const res = await fetch(`/api/v1/blog/get-blog?startIndex=${startIndex}`);
+      const res = await fetch(
+        `${BASE_URL}/api/v1/blog/get-blog?startIndex=${startIndex}`
+      );
       const data = await res.json();
       if (res.ok) {
         setBlog((prev) => [...prev, ...data.data.blog]);
@@ -54,7 +57,6 @@ function AllBlog() {
               key={blog._id}
               className="bg-card dark:bg-card-dark rounded-2xl shadow-md border border-border dark:border-border-dark flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-
               <div className="h-52 w-full overflow-hidden">
                 <img
                   className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"

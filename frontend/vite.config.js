@@ -6,14 +6,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default defineConfig({
- server:{
-    proxy:{
-      "/api":{
-        target: "https://mern-blog-backend-yoak.onrender.com",
-        changeOrigin: true,
-      },
-    },
-  },
   plugins: [
     tailwindcss(),
     react()],

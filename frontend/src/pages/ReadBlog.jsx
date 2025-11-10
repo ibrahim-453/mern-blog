@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CommentSection from "../components/CommentSection";
+import { BASE_URL } from "../config";
 
 function ReadBlog() {
   const { blogSlug } = useParams();
@@ -10,7 +11,9 @@ function ReadBlog() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`);
+        const res = await fetch(
+          `${BASE_URL}/api/v1/blog/get-blog?slug=${blogSlug}`
+        );
         const data = await res.json();
         if (res.ok) {
           setBlog(data.data.blog[0]);
@@ -57,30 +60,30 @@ function ReadBlog() {
           </div>
           <div
             className="
-    prose prose-lg max-w-none leading-relaxed
-    text-text dark:text-text-dark
+              prose prose-lg max-w-none leading-relaxed
+              text-text dark:text-text-dark
 
-    /* Headings */
-    prose-headings:text-text dark:prose-headings:text-text-dark
-    prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
-    prose-h1:font-bold prose-h2:font-semibold prose-h3:font-medium
+              /* Headings */
+              prose-headings:text-text dark:prose-headings:text-text-dark
+              prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+              prose-h1:font-bold prose-h2:font-semibold prose-h3:font-medium
 
-    /* Paragraphs & lists */
-    prose-p:text-text dark:prose-p:text-text-dark
-    prose-li:text-text dark:prose-li:text-text-dark
-    prose-strong:text-text dark:prose-strong:text-text-dark
+              /* Paragraphs & lists */
+              prose-p:text-text dark:prose-p:text-text-dark
+              prose-li:text-text dark:prose-li:text-text-dark
+              prose-strong:text-text dark:prose-strong:text-text-dark
 
-    /* Links */
-    prose-a:text-accent-1 dark:prose-a:text-accent-1-dark
-    prose-a:no-underline hover:prose-a:underline
+              /* Links */
+              prose-a:text-accent-1 dark:prose-a:text-accent-1-dark
+              prose-a:no-underline hover:prose-a:underline
 
-    /* Blockquotes & code */
-    prose-blockquote:border-l-accent-1 dark:prose-blockquote:border-l-accent-1-dark
-    prose-code:text-accent-1 dark:prose-code:text-accent-1-dark
+              /* Blockquotes & code */
+              prose-blockquote:border-l-accent-1 dark:prose-blockquote:border-l-accent-1-dark
+              prose-code:text-accent-1 dark:prose-code:text-accent-1-dark
 
-    /* Images */
-    prose-img:rounded-xl
-  "
+              /* Images */
+              prose-img:rounded-xl
+            "
             dangerouslySetInnerHTML={{ __html: blog.content }}
           ></div>
 

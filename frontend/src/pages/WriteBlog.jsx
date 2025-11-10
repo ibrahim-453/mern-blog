@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function WriteBlog() {
   const [blogdata, setBlogData] = useState({
@@ -28,7 +29,7 @@ function WriteBlog() {
     (formData.append("content", blogdata.content),
       formData.append("bannerImage", bannerImage));
     try {
-      const res = await fetch(`/api/v1/blog/create-blog`, {
+      const res = await fetch(`${BASE_URL}/api/v1/blog/create-blog`, {
         method: "POST",
         body: formData,
         credentials: "include",

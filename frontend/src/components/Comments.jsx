@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { ThumbsUp, Edit2, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 function Comments({ comment, onEdit, onDelete }) {
   const { user } = useSelector((state) => state.auth);
@@ -14,12 +15,15 @@ function Comments({ comment, onEdit, onDelete }) {
   const [editcomment, setEditComment] = useState("");
   const handleLike = async (commentId) => {
     try {
-      const res = await fetch(`/api/v1/comment/comment-like/${commentId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ commentId }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${BASE_URL}/api/v1/comment/comment-like/${commentId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ commentId }),
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         toast.success(data.message);
@@ -38,10 +42,13 @@ function Comments({ comment, onEdit, onDelete }) {
 
   const handleDelete = async (commentId) => {
     try {
-      const res = await fetch(`/api/v1/comment/delete-comment/${commentId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${BASE_URL}/api/v1/comment/delete-comment/${commentId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       onDelete(commentId);
     } catch (error) {
@@ -51,11 +58,14 @@ function Comments({ comment, onEdit, onDelete }) {
 
   const handleUpdate = async (commentId) => {
     try {
-      const res = await fetch(`/api/v1/comment/edit-comment/${commentId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: editcomment }),
-      });
+      const res = await fetch(
+        `${BASE_URL}/api/v1/comment/edit-comment/${commentId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: editcomment }),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         toast.error(data.message);
