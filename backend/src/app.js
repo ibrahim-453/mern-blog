@@ -7,8 +7,6 @@ import userRouter from "./routes/user.routes.js";
 import blogRouter from "./routes/blog.routes.js";
 import commentRouter from "./routes/comment.routes.js";
 import contactRouter from "./routes/contact.routes.js";
-import path from "path";
-import { fileURLToPath } from "url";
 
 app.use(
   cors({
@@ -16,10 +14,7 @@ app.use(
     credentials: true,
   })
 );
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,5 +24,6 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/comment", commentRouter);
 app.use("/api/v1/contact", contactRouter);
+
 
 export { app };
