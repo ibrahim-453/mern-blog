@@ -41,7 +41,8 @@ function WriteBlog() {
       setBlogData({ title: "", categoryName: "", content: "" });
       setBannerImage(null);
     } catch (error) {
-      toast.error(error.message || "Something Went Wrong");
+      console.log(error.message);
+      toast.error("Something Went Wrong");
     } finally {
       setLoading(false);
     }

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 function EditBlog() {
   const { blogSlug } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [blogdata, setBlogData] = useState({
     title: "",
@@ -25,6 +26,7 @@ function EditBlog() {
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
+      setLoading(true);
       try {
         const res = await fetch(`/api/v1/blog/get-blog?slug=${blogSlug}`, {
           method: "GET",
@@ -43,6 +45,9 @@ function EditBlog() {
         }
       } catch (err) {
         console.error("Error fetching blog:", err.message);
+        toast.error("Something Went Wrong");
+      } finally {
+        setLoading(false);
       }
     };
     fetchBlogDetails();
@@ -55,7 +60,7 @@ function EditBlog() {
     formData.append("content", blogdata.content);
     formData.append("categoryName", blogdata.categoryName);
     if (bannerImage) formData.append("bannerImage", bannerImage);
-
+    setLoading(true);
     try {
       const res = await fetch(`/api/v1/blog/edit-blog/${blogdata.id}`, {
         method: "PUT",
@@ -66,7 +71,9 @@ function EditBlog() {
       toast.success(data.message);
       if (res.ok) navigate("/my-blogs");
     } catch (err) {
-      toast.error(err.message || "Something went wrong");
+      console.log(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +89,6 @@ function EditBlog() {
           className="w-full bg-card dark:bg-card-dark border border-border dark:border-border-dark 
           rounded-2xl shadow-lg p-6 sm:p-10 flex flex-col gap-6"
         >
-
           <div className="flex flex-col gap-2">
             <label className="text-lg font-semibold text-text-secondary dark:text-text-secondary-dark">
               Title
@@ -202,24 +208,24 @@ function EditBlog() {
             />
           </div>
 
-         <div className="flex justify-center items-center gap-5">
-           <button
-            type="submit"
-            className="w-full py-3 text-lg font-semibold text-white rounded-lg 
+          <div className="flex justify-center items-center gap-5">
+            <button
+              type="submit"
+              className="w-full py-3 text-lg font-semibold text-white rounded-lg 
             bg-accent-1 dark:bg-accent-1-dark hover:bg-hover dark:hover:bg-hover-dark 
             shadow-md transition-colors"
-          >
-            Update Blog
-          </button>
-          <Link
-          to="/profile-details"
-            className="w-full py-3 text-lg font-semibold text-white rounded-lg 
+            >
+              {loading ? "Updating Blog..." : "Update Blog"}
+            </button>
+            <Link
+              to="/profile-details"
+              className="w-full py-3 text-lg font-semibold text-white rounded-lg 
             bg-accent-1 text-center dark:bg-accent-1-dark hover:bg-hover dark:hover:bg-hover-dark 
-            shadow-md transition-colors" 
-          >
-          Back To Dashboard
-          </Link>
-         </div>
+            shadow-md transition-colors"
+            >
+              Back To Dashboard
+            </Link>
+          </div>
         </form>
       </div>
     </div>

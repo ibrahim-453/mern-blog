@@ -7,8 +7,10 @@ function VerifyEmail() {
   let email = state?.email || "";
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await fetch(`/api/v1/auth/verify-email`, {
         method: "POST",
@@ -23,7 +25,10 @@ function VerifyEmail() {
       toast.success(data.message);
       navigate("/sign-in");
     } catch (error) {
-      toast.error(error.message);
+      console.log(error.message);
+      toast.error("Something Went Wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,7 +57,7 @@ function VerifyEmail() {
             type="submit"
             className="w-full py-2 sm:py-3 bg-accent-1 dark:bg-accent-1-dark hover:bg-hover dark:hover:bg-hover-dark text-white font-semibold rounded-xl transition-all duration-200 shadow-md"
           >
-            Verify
+            {loading ? "Verifying..." : "Verify"}
           </button>
         </form>
       </div>
