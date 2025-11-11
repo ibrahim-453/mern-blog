@@ -11,10 +11,11 @@ import uploadOnCloudinary from "../utils/cloudinary.js";
 
 const cookieOptions = {
   httpOnly: true,
-  sameSite: process.env.NODE_ENV == "production" ? "none" : "strict",
-  secure: process.env.NODE_ENV == "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: process.env.NODE_ENV === "production",
   path: "/",
   maxAge: 7 * 24 * 60 * 60 * 1000,
+  domain: process.env.NODE_ENV === "production" ? ".yourdomain.com" : undefined
 };
 
 const signup = asyncHandler(async (req, res) => {
