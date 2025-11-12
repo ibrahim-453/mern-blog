@@ -1,5 +1,6 @@
 import instagram from "../assets/instagram.png";
 import facebook from "../assets/facebook.png";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -19,36 +20,36 @@ function Footer() {
           </h3>
           <ul className="space-y-2">
             <li>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="hover:text-accent-1 dark:hover:text-accent-1-dark"
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/about"
+              <Link
+                to="/about"
                 className="hover:text-accent-1 dark:hover:text-accent-1-dark"
               >
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/blogs"
+              <Link
+                to="/blogs"
                 className="hover:text-accent-1 dark:hover:text-accent-1-dark"
               >
                 Blogs
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="hover:text-accent-1 dark:hover:text-accent-1-dark"
               >
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
