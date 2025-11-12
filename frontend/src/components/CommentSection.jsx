@@ -36,7 +36,9 @@ function CommentSection({ blogId }) {
     const getComments = async () => {
       try {
         const res = await fetch(
-          `${BASE_URL}/api/v1/comment/blog-comment/${blogId}`
+          `${BASE_URL}/api/v1/comment/blog-comment/${blogId}`,{
+            credentials: "include"
+          }
         );
         const data = await res.json();
         if (!res.ok) {
