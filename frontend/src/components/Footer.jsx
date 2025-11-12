@@ -20,12 +20,12 @@ function Footer() {
           </h3>
           <ul className="space-y-2">
             <li>
-              <Link
-                to="/"
+              <a
+                href="/"
                 className="hover:text-accent-1 dark:hover:text-accent-1-dark"
               >
                 Home
-              </Link>
+              </a>
             </li>
             <li>
               <Link
