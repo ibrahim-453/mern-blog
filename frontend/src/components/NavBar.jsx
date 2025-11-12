@@ -7,6 +7,9 @@ import { toggleTheme } from "../redux/theme/themeSlice";
 import Search from "./Search";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../config";
+import { getAuth, signOut as firebaseSignOut } from "firebase/auth";
+import { app } from "../firebase";
+
 
 function NavBar() {
   const { theme } = useSelector((state) => state.theme);
@@ -34,6 +37,12 @@ function NavBar() {
         credentials: "include",
       });
       const data = await res.json();
+      try {
+      const auth = getAuth(app);
+      if (auth.currentUser) await firebaseSignOut(auth);
+    } catch (firebaseErr) {
+      console.error("Firebase logout failed:", firebaseErr);
+    }
       if (res.ok) {
         toast.success(data.message);
         dispatch(signout());
