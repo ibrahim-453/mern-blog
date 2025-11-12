@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
 import { BASE_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 function Search() {
   const [term, setTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef(null);
+  const navigate = useNavigate()
  
   useEffect(() => {
     if (!term) return setSuggestions([]);
@@ -55,9 +57,7 @@ function Search() {
               <li
                 key={blog._id}
                 className="p-2 font-normal text-sm cursor-pointer flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-accent-2-dark transition"
-                onClick={() =>
-                  (window.location.href = `/read-blog/${blog.slug}`)
-                }
+                onClick={() => navigate(`/read-blog/${blog.slug}`)}
               >
                 <img
                   className="w-10 h-10 object-cover rounded"
