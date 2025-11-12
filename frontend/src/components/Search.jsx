@@ -13,9 +13,7 @@ function Search() {
 
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog?searchTerm=${term}`,{
-          credentials : "include"
-        });
+        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog?searchTerm=${term}`);
         const data = await res.json();
         if (res.ok) setSuggestions(data.data.blog || []);
       } catch (error) {

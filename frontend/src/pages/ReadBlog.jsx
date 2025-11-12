@@ -12,10 +12,7 @@ function ReadBlog() {
     const fetchBlog = async () => {
       try {
         const res = await fetch(
-          `${BASE_URL}/api/v1/blog/get-blog?slug=${blogSlug}`,{
-            credentials: "include",
-          }
-        );
+          `${BASE_URL}/api/v1/blog/get-blog?slug=${blogSlug}`);
         const data = await res.json();
         if (res.ok) {
           setBlog(data.data.blog[0]);
