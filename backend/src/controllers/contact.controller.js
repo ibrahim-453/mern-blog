@@ -2,7 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Contact } from "../models/contact.model.js";
-import { sendEmail } from "../utils/emailService.js";
+import { sendEmail } from "../utils/Email.js";
 import validator from "validator";
 import isDomainValid from "../utils/EmailCheck.js";
 

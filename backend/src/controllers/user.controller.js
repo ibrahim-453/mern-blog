@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { sendEmail } from "../utils/emailService.js";
+import { sendEmail } from "../utils/Email.js";
 import validator from "validator";
 import isDomainValid from "../utils/EmailCheck.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
