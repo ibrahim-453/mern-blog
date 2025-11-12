@@ -14,7 +14,9 @@ function UserBlog() {
     const fetchUserBlogs = async () => {
       try {
         const res = await fetch(
-          `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}`
+          `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}`,{
+            credentials: "include",
+          }
         );
         const data = await res.json();
         if (res.ok) {
@@ -57,7 +59,9 @@ function UserBlog() {
     const startIndex = myblog.length;
     try {
       const res = await fetch(
-        `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`
+        `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`,{
+          credentials: "include",
+        }
       );
       const data = await res.json();
       if (res.ok) {

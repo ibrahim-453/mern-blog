@@ -17,6 +17,7 @@ function VerifyToken() {
       const res = await fetch(`${BASE_URL}/api/v1/user/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ resetToken }),
       });
       const data = await res.json();

@@ -16,6 +16,7 @@ function ChangePassword() {
       const res = await fetch(`${BASE_URL}/api/v1/user/change-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ newPassword }),
       });
       const data = await res.json();
