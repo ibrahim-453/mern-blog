@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import transporter from "../utils/nodemailer.js";
+import { sendEmail } from "../utils/emailService.js";
 import validator from "validator";
 import isDomainValid from "../utils/EmailCheck.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
@@ -50,15 +50,14 @@ const signup = asyncHandler(async (req, res) => {
     isVerificationToken: otp,
     isVerificationTokenExpiresAt: otpexpiry,
   });
-  const mailOptions = {
-    from: process.env.SENDER_EMAIL,
-    to: email,
+  await sendEmail({
+    to: createdUser.email,
     subject: "Verify Your Email for MyBlog",
     html: `
     <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
       <h2 style="color: #2563EB;">Welcome to MyBlog!</h2>
       <p>Hello,</p>
-      <p>Your account has been successfully created with the email: <strong>${email}</strong>.</p>
+      <p>Your account has been successfully created with the email: <strong>${createdUser.email}</strong>.</p>
       <p>Please use the following OTP to verify your email address:</p>
       <p style="font-size: 1.5em; font-weight: bold; color: #1E40AF;">${otp}</p>
       <p>This OTP will expire in 10 minutes.</p>
@@ -67,9 +66,7 @@ const signup = asyncHandler(async (req, res) => {
       <p>Thank you,<br>The MyBlog Team</p>
     </div>
   `,
-  };
-
-  await transporter.sendMail(mailOptions);
+  });
   return res
     .status(200)
     .json(
@@ -196,7 +193,6 @@ const googleauth = asyncHandler(async (req, res) => {
 });
 
 const signout = asyncHandler(async (req, res) => {
-  // let user = await User.findOne(req.user._id)
   return res
     .status(200)
     .clearCookie("accessToken", cookieOptions)
@@ -211,28 +207,25 @@ const resettoken = asyncHandler(async (req, res) => {
   const resetToken = Math.floor(100000 + Math.random() * 900000);
   const resetTokenExpiry = Date.now() + 10 * 60 * 1000;
 
-  ((user.resetToken = resetToken),
-    (user.resetTokenExpiresAt = resetTokenExpiry));
-  const mailOptions = {
-    from: process.env.SENDER_EMAIL,
-    to: req.user.email,
-    subject: "Password Reset Request",
+  user.resetToken = resetToken;
+  user.resetTokenExpiresAt = resetTokenExpiry;
+  await sendEmail({
+    to: user.email,
+    subject: "OTP For Change Password",
     html: `
-    <div style="font-family: Arial, sans-serif; color: #0F172A; background-color: #F8FAFC; padding: 20px; border-radius: 8px;">
-      <h2 style="color: #2563EB;">Password Reset Request</h2>
-      <p>Hello ${req.user.fullname || "User"},</p>
-      <p>We received a request to reset your password. Use the OTP below to complete the process:</p>
-      <div style="margin: 20px 0; padding: 10px 20px; background-color: #E0F2FE; color: #1E40AF; border-radius: 6px; font-size: 20px; font-weight: bold; display: inline-block;">
-        ${resetToken}
-      </div>
-      <p>This OTP will expire in <strong>10 minutes</strong>.</p>
-      <p>If you did not request this, please ignore this email — your account will remain secure.</p>
-      <p style="margin-top: 20px;">Thanks,<br>The Support Team</p>
+    <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+      <h2 style="color: #2563EB;">OTP CODE</h2>
+      <p>Hello,</p>
+      <p>Your request to change has been granted</p>
+      <p>Please use the following OTP to verify your request :</p>
+      <p style="font-size: 1.5em; font-weight: bold; color: #1E40AF;">${resetToken}</p>
+      <p>This OTP will expire in 10 minutes.</p>
+      <p>If you did not request this, please ignore this email.</p>
+      <br>
+      <p>Thank you,<br>The MyBlog Team</p>
     </div>
   `,
-  };
-
-  await transporter.sendMail(mailOptions);
+  });
   await user.save();
   return res.status(200).json(new ApiResponse(200, "Otp Sent to your email"));
 });
