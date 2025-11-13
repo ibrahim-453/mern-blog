@@ -62,7 +62,7 @@ const likecomment = asyncHandler(async (req,res)=>{
     return res
     .status(200)
     .json(
-        new ApiResponse(200,alreadyliked ? "Unliked Comment" : "Liked Comment",{likes:comment.numberOfLikes})
+        new ApiResponse(200,alreadyliked ? "Liked Comment" : "Unliked Comment",{likes:comment.numberOfLikes})
     )
 })
 
