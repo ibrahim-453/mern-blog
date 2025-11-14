@@ -8,7 +8,10 @@ import { BASE_URL } from "../config";
 function Comments({ comment, onEdit, onDelete }) {
   const { user } = useSelector((state) => state.auth);
   const [likes, setLikes] = useState(false);
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+  const googleToken = localStorage.getItem("googleToken");
+  const token = userToken || googleToken;
+
   const [numberoflikes, setNumberOfLikes] = useState(
     comment.numberoflikes || 0
   );
