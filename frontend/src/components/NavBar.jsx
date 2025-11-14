@@ -19,7 +19,6 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -30,34 +29,40 @@ function NavBar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   const handleLogout = async () => {
-    try {
-      const res = await fetch(`${BASE_URL}/api/v1/auth/sign-out`, {
-        method: "POST",
-        headers: { "Authorization" : `Bearer ${token}` },
-        credentials: "include",
-      });
-      const data = await res.json();
-      try {
+  try {
+
+    const userToken = localStorage.getItem("accessToken");
+    const googleToken = localStorage.getItem("googleToken");
+    const token = userToken || googleToken;
+
+    if (!token) {
+      toast.error("No user is logged in");
+      return;
+    }
+
+    const res = await fetch(`${BASE_URL}/api/v1/auth/sign-out`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      credentials : "include"
+    });
+    const data = await res.json();
+
+    if (googleToken) {
       const auth = getAuth(app);
       if (auth.currentUser) await firebaseSignOut(auth);
-    } catch (firebaseErr) {
-      console.error("Firebase logout failed:", firebaseErr);
     }
-      if (res.ok) {
-        toast.success(data.message);
-        localStorage.removeItem("accessToken");
-        dispatch(signout());
-        navigate("/sign-in");
-      } else {
-        toast.error("SignOut Failed");
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
 
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("googleToken");
+    dispatch(signout());
+
+    toast.success(data.message || "Logged out successfully");
+    navigate("/sign-in");
+  } catch (error) {
+    toast.error(error.message || "Logout failed");
+  }
+};
   return (
     <header className="bg-bg-primary text-text dark:bg-bg-primary-dark dark:text-text-dark sticky top-0 left-0 w-full h-16 z-50 duration-300 border-b-2 border-accent-1">
       <nav className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 md:gap-8 py-3 px-4 md:px-8 font-semibold">
