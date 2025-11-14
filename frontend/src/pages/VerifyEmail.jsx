@@ -9,7 +9,10 @@ function VerifyEmail() {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+    const googleToken = localStorage.getItem("googleToken");
+    const token = userToken || googleToken;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

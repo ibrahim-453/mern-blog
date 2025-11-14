@@ -11,7 +11,10 @@ function ProfileDetail() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
   const navigate = useNavigate();
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+    const googleToken = localStorage.getItem("googleToken");
+    const token = userToken || googleToken;
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;

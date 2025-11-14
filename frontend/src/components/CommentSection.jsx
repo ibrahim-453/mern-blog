@@ -9,7 +9,10 @@ function CommentSection({ blogId }) {
   const { user } = useSelector((state) => state.auth);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+  const googleToken = localStorage.getItem("googleToken");
+  const token = userToken || googleToken;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -7,7 +7,10 @@ import { BASE_URL } from "../config";
 function ReadBlog() {
   const { blogSlug } = useParams();
   const [blog, setBlog] = useState(null);
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+    const googleToken = localStorage.getItem("googleToken");
+    const token = userToken || googleToken;
+
   useEffect(() => {
     const fetchBlog = async () => {
       try {

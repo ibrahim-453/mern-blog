@@ -7,7 +7,10 @@ import { BASE_URL } from "../config";
 function AdminBlog() {
   const [allBlog, setAllBlog] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+  const googleToken = localStorage.getItem("googleToken");
+  const token = userToken || googleToken;
+ 
 
   useEffect(() => {
     const fetchallBlog = async () => {

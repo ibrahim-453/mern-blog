@@ -11,7 +11,10 @@ function WriteBlog() {
   });
   const [bannerImage, setBannerImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+    const googleToken = localStorage.getItem("googleToken");
+    const token = userToken || googleToken;
+
   const handleChange = (e) => {
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
   };

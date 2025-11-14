@@ -9,7 +9,10 @@ function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef(null);
   const navigate = useNavigate()
-  const token = localStorage.getItem("accessToken");
+  const userToken = localStorage.getItem("accessToken");
+  const googleToken = localStorage.getItem("googleToken");
+  const token = userToken || googleToken;
+
   useEffect(() => {
     if (!term) return setSuggestions([]);
 
