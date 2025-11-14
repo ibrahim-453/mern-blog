@@ -6,11 +6,12 @@ import { BASE_URL } from "../config";
 function AdminComment() {
   const [allComments, setAllComments] = useState([]);
   const [showMore, setShowMore] = useState(true);
-
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchAllComments = async () => {
       try {
         const res = await fetch(`${BASE_URL}/api/v1/comment/get-comment`, {
+          headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         });
         const data = await res.json();
@@ -34,8 +35,8 @@ function AdminComment() {
     const startIndex = allComments.length;
     try {
       const res = await fetch(
-        `${BASE_URL}/api/v1/comment/get-comment?startIndex=${startIndex}`,
-        {
+        `${BASE_URL}/api/v1/comment/get-comment?startIndex=${startIndex}`,{
+          headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         }
       );
@@ -64,6 +65,7 @@ function AdminComment() {
         `${BASE_URL}/api/v1/comment/delete-comment/${commentId}`,
         {
           method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         }
       );

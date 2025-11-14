@@ -9,6 +9,10 @@ import { BASE_URL } from "../config";
 function OAuth() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const headers = { "Content-Type": "application/json" };
+    const token = localStorage.getItem("accessToken");
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
   const handleOAuth = async () => {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
@@ -19,7 +23,7 @@ function OAuth() {
       console.log(resultFromGoogle);
       const res = await fetch(`${BASE_URL}/api/v1/auth/google-auth`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
           fullname: resultFromGoogle.user.displayName,
           email: resultFromGoogle.user.email,

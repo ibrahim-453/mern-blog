@@ -9,13 +9,17 @@ function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef(null);
   const navigate = useNavigate()
- 
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     if (!term) return setSuggestions([]);
 
     const timer = setTimeout(async () => {
       try {
         const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog?searchTerm=${term}`,{
+          method : "GET",
+          headers : {
+            Authorization : `Bearer ${token}`
+          },
           credentials : "include"
         });
         const data = await res.json();
@@ -107,9 +111,7 @@ function Search() {
                     <li
                       key={blog._id}
                       className="p-2 text-sm cursor-pointer flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-accent-2-dark transition"
-                      onClick={() =>
-                        (window.location.href = `/read-blog/${blog.slug}`)
-                      }
+                      onClick={() => navigate(`/read-blog/${blog.slug}`)}
                     >
                       <img
                         className="w-10 h-10 object-cover rounded"

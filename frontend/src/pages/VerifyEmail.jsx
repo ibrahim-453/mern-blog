@@ -9,13 +9,15 @@ function VerifyEmail() {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("accessToken");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/api/v1/auth/verify-email`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}` },
         body: JSON.stringify({ email, otp }),
       });
       const data = await res.json();

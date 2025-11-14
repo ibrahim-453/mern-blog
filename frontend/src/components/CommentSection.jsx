@@ -9,6 +9,7 @@ function CommentSection({ blogId }) {
   const { user } = useSelector((state) => state.auth);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const token = localStorage.getItem("accessToken");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ function CommentSection({ blogId }) {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/comment/write-comment`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}` },
         body: JSON.stringify({ blogId, content: comment }),
         credentials: "include",
       });
@@ -37,6 +38,8 @@ function CommentSection({ blogId }) {
       try {
         const res = await fetch(
           `${BASE_URL}/api/v1/comment/blog-comment/${blogId}`,{
+            method: "GET",
+            headers: { "Authorization" : `Bearer ${token}` },
             credentials: "include"
           }
         );

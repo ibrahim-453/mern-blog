@@ -16,7 +16,7 @@ function EditBlog() {
     bannerUrl: "",
   });
   const [bannerImage, setBannerImage] = useState(null);
-
+  const token = localStorage.getItem("accessToken"); 
   const handleChange = (e) =>
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
 
@@ -33,6 +33,7 @@ function EditBlog() {
           `${BASE_URL}/api/v1/blog/get-blog?slug=${blogSlug}`,
           {
             method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
             credentials: "include",
           }
         );
@@ -70,6 +71,7 @@ function EditBlog() {
         `${BASE_URL}/api/v1/blog/edit-blog/${blogdata.id}`,
         {
           method: "PUT",
+          headers: { Authorization: `Bearer ${token}` },
           body: formData,
           credentials: "include",
         }

@@ -9,12 +9,14 @@ function UserBlog() {
   const { user } = useSelector((state) => state.auth);
   const [myblog, setMyBlog] = useState([]);
   const [showmore, setShowMore] = useState(true);
-
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchUserBlogs = async () => {
       try {
         const res = await fetch(
           `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}`,{
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
             credentials: "include",
           }
         );
@@ -40,6 +42,7 @@ function UserBlog() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/blog/delete-blog/${blogId}`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
       });
       const data = await res.json();
@@ -60,6 +63,8 @@ function UserBlog() {
     try {
       const res = await fetch(
         `${BASE_URL}/api/v1/blog/get-blog?userId=${user._id}&startIndex=${startIndex}`,{
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         }
       );

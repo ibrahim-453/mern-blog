@@ -9,12 +9,14 @@ function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const { showPassword, togglepassword } = usePasswordToggle();
   const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch(`${BASE_URL}/api/v1/user/change-password`, {
         method: "POST",
+        headers : {Authorization: `Bearer ${token}`},
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ newPassword }),

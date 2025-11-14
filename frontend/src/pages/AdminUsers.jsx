@@ -6,10 +6,12 @@ import { BASE_URL } from "../config";
 function AdminUsers() {
   const [allUsers, setAllUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
         const res = await fetch(`${BASE_URL}/api/v1/user/get-users`, {
+          headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         });
         const data = await res.json();
@@ -33,8 +35,8 @@ function AdminUsers() {
     const startIndex = allUsers.length;
     try {
       const res = await fetch(
-        `${BASE_URL}/api/v1/user/get-users?startIndex=${startIndex}`,
-        {
+        `${BASE_URL}/api/v1/user/get-users?startIndex=${startIndex}`,{
+          headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         }
       );
@@ -65,6 +67,7 @@ function AdminUsers() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/user/delete-user/${userId}`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
       });
       const data = await res.json();

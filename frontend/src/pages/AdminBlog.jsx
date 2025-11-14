@@ -7,10 +7,14 @@ import { BASE_URL } from "../config";
 function AdminBlog() {
   const [allBlog, setAllBlog] = useState([]);
   const [showMore, setShowMore] = useState(true);
+  const token = localStorage.getItem("accessToken");
+
   useEffect(() => {
     const fetchallBlog = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog`);
+        const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog`,{
+          headers: { Authorization: `Bearer ${token}` }
+        });
         const data = await res.json();
         if (res.ok) {
           setAllBlog(data.data.blog || []);
@@ -29,7 +33,9 @@ function AdminBlog() {
     const startIndex = allBlog.length;
     try {
       const res = await fetch(
-        `${BASE_URL}/api/v1/blog/get-blog?startIndex=${startIndex}`
+        `${BASE_URL}/api/v1/blog/get-blog?startIndex=${startIndex}`,{
+          headers: { Authorization: `Bearer ${token}` }
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -52,6 +58,7 @@ function AdminBlog() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/blog/delete-blog/${blogId}`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
       });
       const data = await res.json();

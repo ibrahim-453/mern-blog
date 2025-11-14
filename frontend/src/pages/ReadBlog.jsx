@@ -7,12 +7,15 @@ import { BASE_URL } from "../config";
 function ReadBlog() {
   const { blogSlug } = useParams();
   const [blog, setBlog] = useState(null);
-
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchBlog = async () => {
       try {
         const res = await fetch(
           `${BASE_URL}/api/v1/blog/get-blog?slug=${blogSlug}`,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
             credentials: "include",
           }
         );

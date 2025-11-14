@@ -5,12 +5,13 @@ import { BASE_URL } from "../config";
 function AllBlog() {
   const [blog, setBlog] = useState([]);
   const [showmore, setShowMore] = useState(true);
-
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const res = await fetch(`${BASE_URL}/api/v1/blog/get-blog`, {
           method: "GET",
+          headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
         if (res.ok) {
@@ -30,7 +31,10 @@ function AllBlog() {
     const startIndex = blog.length;
     try {
       const res = await fetch(
-        `${BASE_URL}/api/v1/blog/get-blog?startIndex=${startIndex}`
+        `${BASE_URL}/api/v1/blog/get-blog?startIndex=${startIndex}`,{
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}`}
+        }
       );
       const data = await res.json();
       if (res.ok) {

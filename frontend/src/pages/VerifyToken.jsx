@@ -9,14 +9,15 @@ function VerifyToken() {
   const [resetToken, setResetToken] = useState("");
   const navigate = useNavigate();
   const [loading,setLoading] = useState(false)
- 
+  const token = localStorage.getItem("accessToken");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/api/v1/user/reset-password`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}`},
         credentials: "include",
         body: JSON.stringify({ resetToken }),
       });

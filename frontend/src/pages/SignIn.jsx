@@ -34,7 +34,7 @@ function SignIn() {
         toast.error(data.message);
         return;
       }
-
+      localStorage.setItem("accessToken", data.data.accessToken)
       dispatch(signin({ user: data.data.user, token: data.data.accessToken }));
       toast.success(data.message);
       setFormData({ email: "", password: "" });

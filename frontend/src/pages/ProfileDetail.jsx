@@ -11,7 +11,7 @@ function ProfileDetail() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("accessToken");
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -22,6 +22,7 @@ function ProfileDetail() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/user/change-profile-photo`, {
         method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
         credentials: "include",
       });
@@ -46,6 +47,7 @@ function ProfileDetail() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/user/reset-password-token`, {
         method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
       });
       const data = await res.json();

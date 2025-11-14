@@ -10,7 +10,7 @@ function Contact() {
     subject: "",
     message: "",
   });
-
+  const token = localStorage.getItem("accessToken");
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -21,7 +21,7 @@ function Contact() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/contact/send-message`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}` },
         body: JSON.stringify(formData),
         credentials: "include",
       });

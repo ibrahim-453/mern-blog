@@ -8,6 +8,7 @@ import { BASE_URL } from "../config";
 function Comments({ comment, onEdit, onDelete }) {
   const { user } = useSelector((state) => state.auth);
   const [likes, setLikes] = useState(false);
+  const token = localStorage.getItem("accessToken");
   const [numberoflikes, setNumberOfLikes] = useState(
     comment.numberoflikes || 0
   );
@@ -19,7 +20,7 @@ function Comments({ comment, onEdit, onDelete }) {
         `${BASE_URL}/api/v1/comment/comment-like/${commentId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}` },
           body: JSON.stringify({ commentId }),
           credentials: "include",
         }
@@ -46,6 +47,7 @@ function Comments({ comment, onEdit, onDelete }) {
         `${BASE_URL}/api/v1/comment/delete-comment/${commentId}`,
         {
           method: "DELETE",
+          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}` },
           credentials: "include",
         }
       );
@@ -62,7 +64,7 @@ function Comments({ comment, onEdit, onDelete }) {
         `${BASE_URL}/api/v1/comment/edit-comment/${commentId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${token}` },
           body: JSON.stringify({ content: editcomment }),
         }
       );

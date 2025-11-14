@@ -19,6 +19,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -34,6 +35,7 @@ function NavBar() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/auth/sign-out`, {
         method: "POST",
+        headers: { "Authorization" : `Bearer ${token}` },
         credentials: "include",
       });
       const data = await res.json();
@@ -45,6 +47,7 @@ function NavBar() {
     }
       if (res.ok) {
         toast.success(data.message);
+        localStorage.removeItem("accessToken");
         dispatch(signout());
         navigate("/sign-in");
       } else {

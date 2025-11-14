@@ -11,6 +11,7 @@ function WriteBlog() {
   });
   const [bannerImage, setBannerImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("accessToken");
   const handleChange = (e) => {
     setBlogData({ ...blogdata, [e.target.name]: e.target.value });
   };
@@ -31,6 +32,7 @@ function WriteBlog() {
     try {
       const res = await fetch(`${BASE_URL}/api/v1/blog/create-blog`, {
         method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
         credentials: "include",
       });

@@ -13,11 +13,11 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const cookieOptions = {
   httpOnly: true,                            
-  secure: isProduction,                  
-  sameSite: isProduction ? "none" : "lax",
+  secure: true,                       
+  sameSite: isProduction ? "none" : "lax",    
   domain: isProduction ? "mern-blog-backend-yoak.onrender.com" : "localhost",
   path: "/",
-  maxAge: 7 * 24 * 60 * 60 * 1000, 
+  maxAge: 7 * 24 * 60 * 60 * 1000,           
 };
 
 
