@@ -10,7 +10,7 @@ function OAuth() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const headers = { "Content-Type": "application/json" };
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("googleToken");
     if (token) headers["Authorization"] = `Bearer ${token}`;
 
   const handleOAuth = async () => {
@@ -33,6 +33,7 @@ function OAuth() {
       });
       const data = await res.json();
       if (res.ok) {
+        localStorage.setItem("googleToken", data.data.accessToken);
         dispatch(
           signin({ user: data.data.user, token: data.data.accessToken })
         );
@@ -42,7 +43,7 @@ function OAuth() {
         toast.error("SomeThing Went Wring Try Again Later");
       }
     } catch (error) {
-      toast.error("LogoutFailed");
+      toast.error("Goolge Login Failed");
     }
   };
 
