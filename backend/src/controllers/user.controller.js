@@ -9,13 +9,17 @@ import validator from "validator";
 import isDomainValid from "../utils/EmailCheck.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const cookieOptions = {
-  httpOnly: true,
-  sameSite: process.env.NODE_ENV == "production" ? "none" : "strict",
-  secure: process.env.NODE_ENV == "production",
+  httpOnly: true,                            
+  secure: isProduction,                  
+  sameSite: isProduction ? "none" : "lax",
+  domain: isProduction ? "mern-blog-backend-yoak.onrender.com" : "localhost",
   path: "/",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
+  maxAge: 7 * 24 * 60 * 60 * 1000, 
 };
+
 
 const signup = asyncHandler(async (req, res) => {
   let { fullname, username, email, password } = req.body;
